@@ -311,6 +311,39 @@ body::after {
     opacity: 1;
 }
 
+.mainpage .topbar-popup-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: #5cff9e;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+@media (min-width: 769px) {
+    .mainpage .topbar-popup-btn {
+        display: flex;
+    }
+}
+
+.mainpage .topbar-popup-btn svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+.mainpage .topbar-popup-btn:hover {
+    opacity: 0.85;
+    transform: scale(1.05);
+}
+
 .mainpage .topbar-menu-btn {
     display: none;
     align-items: center;
@@ -1742,3 +1775,4 @@ body::after {
         inset: -15%;
     }
 }
+

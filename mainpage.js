@@ -6,8 +6,125 @@
     var expandedAlbum = null;
     var shuffleEnabled = false;
     var repeatMode = "none"; // "none" | "all" | "one"
+    var popupWindow = null;
+    var broadcastChannel = null;
 
     var FAVOURITES_KEY = "kanyestream_favourites";
+    
+    // Initialize BroadcastChannel for cross-window communication
+    try {
+        broadcastChannel = new BroadcastChannel('yemedia_player');
+        broadcastChannel.onmessage = function(e) {
+            if (e.data && e.data.type === 'command' && e.data.source === 'popup') {
+                handlePopupCommand(e.data.command, e.data.data);
+            }
+        };
+    } catch(e) {
+        console.warn('BroadcastChannel not supported');
+    }
+    
+    function handlePopupCommand(command, data) {
+        var audio = document.getElementById("mainpage-audio");
+        if (!audio) return;
+        
+        switch(command) {
+            case 'togglePlay':
+                if (audio.paused) {
+                    if (currentAlbum && currentAlbum.tracks && currentAlbum.tracks[currentTrackIndex]) {
+                        if (!audio.src) {
+                            audio.src = currentAlbum.tracks[currentTrackIndex].audioPath;
+                        }
+                    }
+                    audio.play().catch(function () {});
+                } else {
+                    audio.pause();
+                }
+                break;
+            case 'prev':
+                if (!currentAlbum || !currentAlbum.tracks.length) return;
+                if (audio.currentTime > 2) {
+                    audio.currentTime = 0;
+                } else {
+                    advanceToPrevTrack();
+                }
+                break;
+            case 'next':
+                if (!currentAlbum || !currentAlbum.tracks.length) return;
+                advanceToNextTrack();
+                break;
+            case 'seek':
+                if (data && data.percent !== undefined && audio.duration) {
+                    audio.currentTime = data.percent * audio.duration;
+                }
+                break;
+            case 'closePopup':
+                popupWindow = null;
+                break;
+        }
+    }
+    
+    function updatePopupWindow() {
+        if (!popupWindow || popupWindow.closed) {
+            popupWindow = null;
+            return;
+        }
+        
+        var audio = document.getElementById("mainpage-audio");
+        if (!audio) return;
+        
+        var state = {
+            currentAlbum: currentAlbum,
+            currentTrack: currentAlbum && currentAlbum.tracks && currentAlbum.tracks[currentTrackIndex] 
+                ? currentAlbum.tracks[currentTrackIndex] 
+                : null,
+            currentTime: audio.currentTime || 0,
+            duration: audio.duration || 0,
+            isPlaying: !audio.paused
+        };
+        
+        // Send via BroadcastChannel
+        if (broadcastChannel) {
+            broadcastChannel.postMessage({
+                type: 'update',
+                data: state
+            });
+        }
+        
+        // Also update localStorage as fallback
+        try {
+            localStorage.setItem('yemedia_player_state', JSON.stringify(state));
+        } catch(e) {}
+    }
+    
+    function openPopupWindow() {
+        if (popupWindow && !popupWindow.closed) {
+            popupWindow.focus();
+            return;
+        }
+        
+        var width = 280;
+        var height = 280;
+        var left = (screen.width - width) / 2;
+        var top = (screen.height - height) / 2;
+        
+        popupWindow = window.open(
+            'popup-player.html',
+            'yemediaPlayer',
+            'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top + 
+            ',resizable=yes,scrollbars=no,toolbar=no,menubar=no,location=no,status=no'
+        );
+        
+        if (popupWindow) {
+            popupWindow.addEventListener('beforeunload', function() {
+                popupWindow = null;
+            });
+            
+            // Send initial state after window loads
+            setTimeout(function() {
+                updatePopupWindow();
+            }, 500);
+        }
+    }
 
     function getFavourites() {
         try {
@@ -178,6 +295,26 @@
         }
         if (overlay) overlay.addEventListener("click", closeMenu);
         if (closeBtn) closeBtn.addEventListener("click", closeMenu);
+        
+        // Popup player button (desktop)
+        var popupBtn = document.getElementById("topbar-popup-btn");
+        if (popupBtn) {
+            popupBtn.addEventListener("click", function() {
+                openPopupWindow();
+            });
+        }
+        
+        // Page Visibility API - auto-open popup when tab becomes hidden (mobile)
+        var isMobile = window.matchMedia && window.matchMedia("(max-width: 768px)").matches;
+        if (isMobile) {
+            document.addEventListener("visibilitychange", function() {
+                var audio = document.getElementById("mainpage-audio");
+                if (document.hidden && audio && !audio.paused && currentAlbum) {
+                    // Tab became hidden and music is playing - open popup
+                    openPopupWindow();
+                }
+            });
+        }
     }
 
     function playAlbum(album) {
@@ -305,6 +442,7 @@
         }
         updatePlayPauseButtons();
         updateExpandedView();
+        updatePopupWindow();
     }
 
     function updatePlayPauseButtons() {
@@ -966,19 +1104,28 @@
             if (expandedSeekEl && audio.duration && isFinite(audio.duration)) {
                 expandedSeekEl.value = Math.round((audio.currentTime / audio.duration) * 100);
             }
+            updatePopupWindow();
         });
         audio.addEventListener("loadedmetadata", function () {
             if (durationEl) durationEl.textContent = formatTime(audio.duration);
             var expandedDurationEl = document.getElementById("mainpage-player-expanded-duration");
             if (expandedDurationEl) expandedDurationEl.textContent = formatTime(audio.duration);
+            updatePopupWindow();
         });
         audio.addEventListener("durationchange", function () {
             if (durationEl) durationEl.textContent = formatTime(audio.duration);
             var expandedDurationEl = document.getElementById("mainpage-player-expanded-duration");
             if (expandedDurationEl) expandedDurationEl.textContent = formatTime(audio.duration);
+            updatePopupWindow();
         });
-        audio.addEventListener("play", updatePlayPauseButtons);
-        audio.addEventListener("pause", updatePlayPauseButtons);
+        audio.addEventListener("play", function() {
+            updatePlayPauseButtons();
+            updatePopupWindow();
+        });
+        audio.addEventListener("pause", function() {
+            updatePlayPauseButtons();
+            updatePopupWindow();
+        });
     }
 
     function initSearch() {
@@ -1000,3 +1147,4 @@
             gridEl.innerHTML = "<p class=\"mainpage-error\">Could not load albums. Add <code>data/albums.json</code> and serve the site (e.g. with a local server).</p>";
         });
 })();
+

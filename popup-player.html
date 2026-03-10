@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player - yemedia</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(26, 26, 46, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            font-family: "Yung Jakes", "yungjakes", sans-serif;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            color: #5cff9e;
+        }
+        
+        @font-face {
+            font-family: "Yung Jakes";
+            src: local("Yung Jakes New Handwriting"), local("YungJakesNewHandwriting"), url("YungJakesNewHandwriting-Regular.ttf") format("truetype");
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        .popup-window-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+            gap: 1rem;
+            overflow-y: auto;
+            min-height: 0;
+            position: relative;
+        }
+        
+        .popup-window-close {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            width: 28px;
+            height: 28px;
+            border: none;
+            background: rgba(0, 0, 0, 0.3);
+            color: #5cff9e;
+            font-size: 1.2rem;
+            line-height: 1;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background 0.2s ease;
+            z-index: 10;
+        }
+        
+        .popup-window-close:hover {
+            background: rgba(92, 255, 158, 0.2);
+        }
+        
+        .popup-window-cover-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .popup-window-cover {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid rgba(45, 212, 108, 0.4);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .popup-window-info {
+            text-align: center;
+        }
+        
+        .popup-window-track-title {
+            display: block;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #5cff9e;
+            margin-bottom: 0.25rem;
+            text-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .popup-window-album-title {
+            display: block;
+            font-size: 0.85rem;
+            color: rgba(92, 255, 158, 0.7);
+        }
+        
+        .popup-window-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+        
+        .popup-window-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: rgba(92, 255, 158, 0.1);
+            color: #5cff9e;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+        
+        .popup-window-btn:hover {
+            background: rgba(92, 255, 158, 0.2);
+            transform: scale(1.05);
+        }
+        
+        .popup-window-btn-icon {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+        
+        .popup-window-play-btn {
+            width: 52px;
+            height: 52px;
+            border: none;
+            background: rgba(92, 255, 158, 0.15);
+            color: #5cff9e;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+        
+        .popup-window-play-btn:hover {
+            background: rgba(92, 255, 158, 0.25);
+            transform: scale(1.05);
+        }
+        
+        .popup-window-play-icon {
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
+        }
+        
+        
+        .popup-window-empty {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(92, 255, 158, 0.5);
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="popup-window-content" id="popup-window-content">
+        <button type="button" class="popup-window-close" id="popup-window-close" aria-label="Close">×</button>
+        <div class="popup-window-empty" id="popup-window-empty">No track playing</div>
+        <div class="popup-window-cover-section" id="popup-window-cover-section" style="display: none;">
+            <img id="popup-window-cover" class="popup-window-cover" src="" alt="" />
+            <div class="popup-window-info">
+                <span id="popup-window-track-title" class="popup-window-track-title"></span>
+                <span id="popup-window-album-title" class="popup-window-album-title"></span>
+            </div>
+            <div class="popup-window-controls">
+                <button type="button" id="popup-window-prev" class="popup-window-btn" aria-label="Previous">
+                    <img class="popup-window-btn-icon" src="playericon/icons8-skip-to-start-48.png" alt="" aria-hidden="true">
+                </button>
+                <button type="button" id="popup-window-play" class="popup-window-play-btn" aria-label="Play">
+                    <img id="popup-window-play-icon" class="popup-window-play-icon" src="playericon/icons8-play-48.png" alt="" aria-hidden="true">
+                </button>
+                <button type="button" id="popup-window-next" class="popup-window-btn" aria-label="Next">
+                    <img class="popup-window-btn-icon" src="playericon/icons8-skip-48.png" alt="" aria-hidden="true">
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+        (function() {
+            var popupWindow = window;
+            var broadcastChannel = null;
+            try {
+                broadcastChannel = new BroadcastChannel('yemedia_player');
+            } catch(e) {
+                console.warn('BroadcastChannel not supported');
+            }
+            
+            var coverSection = document.getElementById('popup-window-cover-section');
+            var emptyState = document.getElementById('popup-window-empty');
+            var coverImg = document.getElementById('popup-window-cover');
+            var trackTitle = document.getElementById('popup-window-track-title');
+            var albumTitle = document.getElementById('popup-window-album-title');
+            var playIcon = document.getElementById('popup-window-play-icon');
+            var closeBtn = document.getElementById('popup-window-close');
+            var playBtn = document.getElementById('popup-window-play');
+            var prevBtn = document.getElementById('popup-window-prev');
+            var nextBtn = document.getElementById('popup-window-next');
+            
+            function updateUI(data) {
+                if (!data || !data.currentAlbum || !data.currentTrack) {
+                    coverSection.style.display = 'none';
+                    emptyState.style.display = 'flex';
+                    return;
+                }
+                
+                coverSection.style.display = 'flex';
+                emptyState.style.display = 'none';
+                
+                if (coverImg) coverImg.src = data.currentAlbum.coverPath || '';
+                if (trackTitle) trackTitle.textContent = data.currentTrack.title || '';
+                if (albumTitle) albumTitle.textContent = data.currentAlbum.title || '';
+                
+                if (playIcon) {
+                    playIcon.src = data.isPlaying ? 'playericon/icons8-pause-48.png' : 'playericon/icons8-play-48.png';
+                }
+            }
+            
+            function sendCommand(command, data) {
+                if (broadcastChannel) {
+                    broadcastChannel.postMessage({
+                        type: 'command',
+                        command: command,
+                        data: data,
+                        source: 'popup'
+                    });
+                }
+                // Also use localStorage as fallback
+                try {
+                    localStorage.setItem('yemedia_player_command', JSON.stringify({
+                        command: command,
+                        data: data,
+                        timestamp: Date.now()
+                    }));
+                } catch(e) {}
+            }
+            
+            if (playBtn) {
+                playBtn.addEventListener('click', function() {
+                    sendCommand('togglePlay');
+                });
+            }
+            
+            if (prevBtn) {
+                prevBtn.addEventListener('click', function() {
+                    sendCommand('prev');
+                });
+            }
+            
+            if (nextBtn) {
+                nextBtn.addEventListener('click', function() {
+                    sendCommand('next');
+                });
+            }
+            
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function() {
+                    sendCommand('closePopup');
+                    popupWindow.close();
+                });
+            }
+            
+            // Listen for updates from main window
+            if (broadcastChannel) {
+                broadcastChannel.onmessage = function(e) {
+                    if (e.data && e.data.type === 'update') {
+                        updateUI(e.data.data);
+                    }
+                };
+            }
+            
+            // Poll localStorage for updates (fallback)
+            setInterval(function() {
+                try {
+                    var update = localStorage.getItem('yemedia_player_state');
+                    if (update) {
+                        var data = JSON.parse(update);
+                        updateUI(data);
+                    }
+                } catch(e) {}
+            }, 100);
+            
+            // Request initial state
+            sendCommand('requestState');
+        })();
+    </script>
+</body>
+</html>
+
