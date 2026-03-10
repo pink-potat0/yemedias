@@ -103,9 +103,62 @@
         });
     }
 
-    document.addEventListener("mousemove", updateTransforms);
+    function updateTransformsFromGyro(beta, gamma) {
+        if (beta == null || gamma == null) return;
+        var covers = container.querySelectorAll(".album-cover");
+        covers.forEach(function (img) {
+            if (img.style.display === "none") return;
+            var rx = (beta - 90) * 0.35 * img._tiltWeightX * img._phaseX;
+            var ry = gamma * 0.4 * img._tiltWeightY * img._phaseY;
+            var tx = gamma * 0.8 * img._parallaxWeight;
+            var ty = (beta - 90) * 0.5 * img._parallaxWeight;
+            img.style.transform = "translate(calc(-50% + " + tx + "px), calc(-50% + " + ty + "px)) rotateX(" + rx + "deg) rotateY(" + ry + "deg)";
+        });
+    }
+
+    var isMobile = function () {
+        return window.matchMedia && window.matchMedia("(max-width: 768px)").matches;
+    };
+    var gyroActive = false;
+    var permissionAsked = false;
+
+    function tryEnableGyro() {
+        if (!isMobile() || gyroActive || !window.DeviceOrientationEvent) return;
+        if (typeof DeviceOrientationEvent.requestPermission === "function") {
+            if (permissionAsked) return;
+            permissionAsked = true;
+            DeviceOrientationEvent.requestPermission()
+                .then(function (state) {
+                    if (state === "granted") {
+                        startGyro();
+                    }
+                })
+                .catch(function () {});
+            return;
+        }
+        startGyro();
+    }
+
+    function startGyro() {
+        if (gyroActive) return;
+        gyroActive = true;
+        window.addEventListener("deviceorientation", function (e) {
+            if (e.beta != null && e.gamma != null) {
+                updateTransformsFromGyro(e.beta, e.gamma);
+            }
+        }, { passive: true });
+    }
+
+    document.addEventListener("mousemove", function (e) {
+        if (isMobile() && gyroActive) return;
+        updateTransforms(e);
+    });
+    document.addEventListener("touchstart", function (e) {
+        if (e.touches.length && isMobile()) tryEnableGyro();
+    }, { passive: true });
     document.addEventListener("touchmove", function (e) {
         if (e.touches.length) {
+            if (isMobile() && gyroActive) return;
             updateTransforms({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY });
         }
     }, { passive: true });

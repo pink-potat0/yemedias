@@ -139,6 +139,7 @@ body::after {
     inset: 0;
     z-index: 2;
     pointer-events: none;
+    perspective: 1200px;
 }
 
 .album-covers .album-cover {
