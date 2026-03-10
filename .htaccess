@@ -14,3 +14,4 @@ RewriteRule ^(.*)$ $1.html [L]
 # Default to index.html for root
 DirectoryIndex index.html
 
+
