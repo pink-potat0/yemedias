@@ -1,0 +1,232 @@
+{
+  "albums": [
+    {
+      "id": "donda2",
+      "title": "Donda 2",
+      "coverPath": "albumcvers/donda2.jpg",
+      "tracks": [
+        { "title": "SECURITY", "audioPath": "audio/ye/donda2/01.mp3" },
+        { "title": "TRUE LOVE", "audioPath": "audio/ye/donda2/02.m4a" },
+        { "title": "BROKEN ROAD", "audioPath": "audio/ye/donda2/03.m4a" },
+        { "title": "GET LOST", "audioPath": "audio/ye/donda2/04.mp3" },
+        { "title": "TOO EASY", "audioPath": "audio/ye/donda2/05.mp3" },
+        { "title": "KEEP THE FLOWERS", "audioPath": "audio/ye/donda2/06.mp3" },
+        { "title": "WE DID IT KID", "audioPath": "audio/ye/donda2/07.mp3" },
+        { "title": "PABLO", "audioPath": "audio/ye/donda2/08.mp3" },
+        { "title": "LOUIE BAG", "audioPath": "audio/ye/donda2/09.mp3" },
+        { "title": "HAPPY", "audioPath": "audio/ye/donda2/10.wav" },
+        { "title": "SCI FI", "audioPath": "audio/ye/donda2/11.m4a" },
+        { "title": "SELFISH", "audioPath": "audio/ye/donda2/12.mp3" },
+        { "title": "LORD LIF ME UP", "audioPath": "audio/ye/donda2/13.mp3" },
+        { "title": "CITY OF GOD", "audioPath": "audio/ye/donda2/14.m4a" },
+        { "title": "FIRST TIME IN A LONG TIME", "audioPath": "audio/ye/donda2/15.mp3" },
+        { "title": "5:30", "audioPath": "audio/ye/donda2/16.mp3" },
+        { "title": "MR MYAGI", "audioPath": "audio/ye/donda2/17.wav" }
+      ]
+    },
+    {
+      "id": "sohelpmegod",
+      "title": "So Help Me God",
+      "coverPath": "albumcvers/sohelpmeGOD.jpg",
+      "tracks": [
+        { "title": "All Day", "audioPath": "audio/ye/sohelpmegod/01. All Day.mp3" },
+        { "title": "Can't Look In My Eyes", "audioPath": "audio/ye/sohelpmegod/02. Can_t Look In My Eyes.mp3" },
+        { "title": "After You", "audioPath": "audio/ye/sohelpmegod/03. After You.mp3" },
+        { "title": "Tell Your Friends", "audioPath": "audio/ye/sohelpmegod/04. Tell Your Friends.mp3" },
+        { "title": "Bad Night", "audioPath": "audio/ye/sohelpmegod/05. Bad Night.mp3" },
+        { "title": "I Am Not Home (Interlude)", "audioPath": "audio/ye/sohelpmegod/06. I Am Not Home (Interlude).mp3" },
+        { "title": "The Mind Is Powerful", "audioPath": "audio/ye/sohelpmegod/07. The Mind Is Powerful.mp3" },
+        { "title": "God Level", "audioPath": "audio/ye/sohelpmegod/08. God Level.mp3" },
+        { "title": "Midas Touch", "audioPath": "audio/ye/sohelpmegod/09. Mitus Touch.mp3" },
+        { "title": "Facts", "audioPath": "audio/ye/sohelpmegod/10. Facts.mp3" },
+        { "title": "All Your Fault", "audioPath": "audio/ye/sohelpmegod/11. All Your Fault.mp3" },
+        { "title": "Pressure", "audioPath": "audio/ye/sohelpmegod/12.Pressure.mp3" },
+        { "title": "Can't Get Over Me (Interlude)", "audioPath": "audio/ye/sohelpmegod/13. Can_t Get Over Me (Interlude).mp3" },
+        { "title": "Awesome", "audioPath": "audio/ye/sohelpmegod/14. Awesome.mp3" },
+        { "title": "FourFiveSeconds", "audioPath": "audio/ye/sohelpmegod/15. FourFiveSeconds.mp3" },
+        { "title": "Only One", "audioPath": "audio/ye/sohelpmegod/16. Only One.mp3" },
+        { "title": "I Feel Like That", "audioPath": "audio/ye/sohelpmegod/17. I Feel Like That.mp3" },
+        { "title": "Southside Serenade", "audioPath": "audio/ye/sohelpmegod/18. Southside Serenade.mp3" }
+      ]
+    },
+    {
+      "id": "goodassjob",
+      "title": "Good Ass Job",
+      "coverPath": "albumcvers/GOODASSJOB.jpg",
+      "tracks": [
+        { "title": "Good Ass Intro", "audioPath": "audio/ye/goodassjob/Good Ass Intro.mp3" },
+        { "title": "Good Ass Job", "audioPath": "audio/ye/goodassjob/Good Ass Job.mp3" },
+        { "title": "Christian Dior Denim Flow", "audioPath": "audio/ye/goodassjob/Christian Dior Denim Flow.mp3" },
+        { "title": "Eyes Closed", "audioPath": "audio/ye/goodassjob/Eyes Closed.mp3" },
+        { "title": "Live Fast Die Young", "audioPath": "audio/ye/goodassjob/Live Fast Die Young.mp3" },
+        { "title": "Flashing Lights II", "audioPath": "audio/ye/goodassjob/Flashing Lights II.mp3" },
+        { "title": "Mama's Boyfriend", "audioPath": "audio/ye/goodassjob/Mama's Boyfriend.mp3" },
+        { "title": "Heartbreaker", "audioPath": "audio/ye/goodassjob/Heartbreaker.mp3" },
+        { "title": "Good Friday", "audioPath": "audio/ye/goodassjob/Good Friday.mp3" },
+        { "title": "Glenwood", "audioPath": "audio/ye/goodassjob/Glenwood.mp3" },
+        { "title": "Flight School", "audioPath": "audio/ye/goodassjob/Flight School.mp3" },
+        { "title": "Don't Look Down", "audioPath": "audio/ye/goodassjob/Don't Look Down.mp3" },
+        { "title": "Throw Money Everywhere", "audioPath": "audio/ye/goodassjob/Throw Money Everywhere.mp3" },
+        { "title": "Never See Me Again", "audioPath": "audio/ye/goodassjob/Never See Me Again.mp3" },
+        { "title": "Shoot Up", "audioPath": "audio/ye/goodassjob/Shoot Up.mp3" },
+        { "title": "Only For The Night", "audioPath": "audio/ye/goodassjob/Only For The Night.mp3" },
+        { "title": "See Me Now", "audioPath": "audio/ye/goodassjob/See Me Now.mp3" }
+      ]
+    },
+    {
+      "id": "war",
+      "title": "War",
+      "coverPath": "albumcvers/war.jpeg",
+      "tracks": [
+        { "title": "For Once In My Life - Intro", "audioPath": "audio/ye/war/For Once In My Life - Intro.mp3" },
+        { "title": "Never Coming Back", "audioPath": "audio/ye/war/Never Coming Back.mp3" },
+        { "title": "What I Would've Said At Virgil's Funeral", "audioPath": "audio/ye/war/What I Would've Said At Virgil's Funeral.mp3" },
+        { "title": "Want From Me", "audioPath": "audio/ye/war/Want From Me.mp3" },
+        { "title": "Ticket To Heaven", "audioPath": "audio/ye/war/Ticket To Heaven.mp3" },
+        { "title": "Spiky - Interlude", "audioPath": "audio/ye/war/Spiky - Interlude.mp3" },
+        { "title": "Hold Up, Get Up", "audioPath": "audio/ye/war/Hold Up, Get Up.mp3" },
+        { "title": "Bobby Digital", "audioPath": "audio/ye/war/Bobby Digital.mp3" },
+        { "title": "Quiet", "audioPath": "audio/ye/war/Quiet.mp3" },
+        { "title": "Let It In", "audioPath": "audio/ye/war/Let It In.mp3" },
+        { "title": "Through The High Wire", "audioPath": "audio/ye/war/Through The High Wire.mp3" },
+        { "title": "And They Came Back/This One Here", "audioPath": "audio/ye/war/And They Came Back!This One Here.mp3" },
+        { "title": "All In Love", "audioPath": "audio/ye/war/All In Love.mp3" },
+        { "title": "Fall In Love Again - Outro", "audioPath": "audio/ye/war/Fall In Love Again - Outro.mp3" }
+      ]
+    },
+    {
+      "id": "loveeveryone",
+      "title": "Love Everyone",
+      "coverPath": "albumcvers/loveeveryone.jpg",
+      "tracks": [
+        { "title": "Ye vs. The People", "audioPath": "audio/ye/loveeveryone/1. Ye vs. The People.mp3" },
+        { "title": "Wouldn't Leave", "audioPath": "audio/ye/loveeveryone/2. Wouldn_t Leave.mp3" },
+        { "title": "Simulation Baptize", "audioPath": "audio/ye/loveeveryone/3. Simulation Baptize.mp3" },
+        { "title": "Queen Bitch", "audioPath": "audio/ye/loveeveryone/4. Queen Bitch.mp3" },
+        { "title": "Bad People", "audioPath": "audio/ye/loveeveryone/5. Bad People.mp3" },
+        { "title": "Yikes", "audioPath": "audio/ye/loveeveryone/6. Yikes.mp3" },
+        { "title": "Ass Shot", "audioPath": "audio/ye/loveeveryone/7. Ass Shot.mp3" },
+        { "title": "You Ain't No Model", "audioPath": "audio/ye/loveeveryone/8. You Ain_t No Model.mp3" },
+        { "title": "Ecstasy", "audioPath": "audio/ye/loveeveryone/9. Ecstasy.mp3" },
+        { "title": "I Feel Free", "audioPath": "audio/ye/loveeveryone/10. I Feel Free.mp3" },
+        { "title": "Moonlight", "audioPath": "audio/ye/loveeveryone/11. Moonlight.mp3" },
+        { "title": "Skeletons", "audioPath": "audio/ye/loveeveryone/12. Skeletons.mp3" },
+        { "title": "Take Me to the Light", "audioPath": "audio/ye/loveeveryone/13. Take Me to the Light.mp3" },
+        { "title": "Everything", "audioPath": "audio/ye/loveeveryone/14. Everything.mp3" },
+        { "title": "Brothers", "audioPath": "audio/ye/loveeveryone/15. Brothers.mp3" },
+        { "title": "Violent Crimes", "audioPath": "audio/ye/loveeveryone/16. Violent Crimes.mp3" }
+      ]
+    },
+    {
+      "id": "swish",
+      "title": "Swish",
+      "coverPath": "albumcvers/swish.jpg",
+      "tracks": [
+        { "title": "Father Stretch My Hands Pt. 1 (Intro)", "audioPath": "audio/ye/swish/01 Father Stretch My Hands Pt. 1 (Intro).mp3" },
+        { "title": "Hey Jude, We Major (Feat. The Beatles)", "audioPath": "audio/ye/swish/02 Hey Jude, We Major (Feat. The Beatles).mp3" },
+        { "title": "Hold On (feat. Rick Ross)", "audioPath": "audio/ye/swish/03 Hold On (feat. Rick Ross & Kanye West).mp3" },
+        { "title": "White Dress", "audioPath": "audio/ye/swish/04 White Dress.mp3" },
+        { "title": "White Dress Pt. 2", "audioPath": "audio/ye/swish/05 White Dress Pt. 2.mp3" },
+        { "title": "Sanctified (feat. Rick Ross & Big Sean)", "audioPath": "audio/ye/swish/06 Sanctified (feat. Rick Ross & Big Sean).mp3" },
+        { "title": "Tell Your Friends", "audioPath": "audio/ye/swish/07 Tell Your Friends (Feat. Kanye West.m4a" },
+        { "title": "Black Bruce Wayne", "audioPath": "audio/ye/swish/08 Black Bruce Wayne.m4a" },
+        { "title": "Jesus Piece (feat. Common)", "audioPath": "audio/ye/swish/09 Jesus Piece (feat.Common).mp3" },
+        { "title": "Midas Touch", "audioPath": "audio/ye/swish/10. Midas Touch.m4a" },
+        { "title": "Black Skinhead (Remix) [feat. Miley Cyrus, Travis Scott & Lupe Fiasco]", "audioPath": "audio/ye/swish/11 Black Skinhead (Remix) [feat. Miley Cyrus, Travis Scott & Lupe Fiasco].mp3" },
+        { "title": "Le Grand", "audioPath": "audio/ye/swish/12 Le Grand.m4a" },
+        { "title": "All Day (Feat. Kendrick Lamar)", "audioPath": "audio/ye/swish/13 All Day (Feat. Kendrick Lamar).m4a" },
+        { "title": "Gorgeous (Feat. Pusha-T) (DEMO)", "audioPath": "audio/ye/swish/14 Gourgeous (Feat. Pusha-T) (DEMO).mp3" },
+        { "title": "Ultralight Prayer (Interlude)", "audioPath": "audio/ye/swish/15 Ultralight Prayer (Interlude).mp3" },
+        { "title": "Power (Extended)", "audioPath": "audio/ye/swish/16 Power (Extended).mp3" },
+        { "title": "FML (Feat. Travis Scott)", "audioPath": "audio/ye/swish/17 FML (Feat. Travis Scott).mp3" },
+        { "title": "Awesome", "audioPath": "audio/ye/swish/18 Awesome.mp3" },
+        { "title": "The Good, The Bad and The Ugly", "audioPath": "audio/ye/swish/19 The Good, The Bad and The Ugly.MP3" },
+        { "title": "My Way", "audioPath": "audio/ye/swish/20 My Way.MP3" },
+        { "title": "Home", "audioPath": "audio/ye/swish/21 Home.MP3" },
+        { "title": "Runaway [Ultimate Mix] (feat. Pusha T)", "audioPath": "audio/ye/swish/22 Runaway [Ultimate Mix] (feat. Pusha T).mp3" },
+        { "title": "Imagine the Good Life (Feat. The Beatles)", "audioPath": "audio/ye/swish/23 Imagine the Good Life (Feat. The Beatles).mp3" },
+        { "title": "Bound 1 (Demo)", "audioPath": "audio/ye/swish/24 Bound 1 (Demo).m4a" },
+        { "title": "Bound 2 (feat. Charlie Wilson) [Alternate Ending]", "audioPath": "audio/ye/swish/25 Bound 2 (feat. Charlie Wilson) [Alternate Ending].m4a" },
+        { "title": "Bound 3 (feat. Rick Ross & Charlie Wilson)", "audioPath": "audio/ye/swish/26 Bound 3 (feat. Rick Ross & Charlie Wilson).m4a" },
+        { "title": "Only One [57th Grammy Awards] [Live]", "audioPath": "audio/ye/swish/27 Only One [57th Grammy Awards] [Live].mp3" }
+      ]
+    },
+    {
+      "id": "yahndi",
+      "title": "Yandhi",
+      "coverPath": "albumcvers/yahndi.jpg",
+      "tracks": [
+        { "title": "Selah", "audioPath": "audio/ye/yahndi/01 SELAH.mp3" },
+        { "title": "The Storm", "audioPath": "audio/ye/yahndi/02 THE STORM.mp3" },
+        { "title": "New Body", "audioPath": "audio/ye/yahndi/03 NEW BODY.mp3" },
+        { "title": "Spread Your Wings", "audioPath": "audio/ye/yahndi/04 SPREAD YOUR WINGS.mp3" },
+        { "title": "Ego Death", "audioPath": "audio/ye/yahndi/05 EGO DEATH.mp3" },
+        { "title": "Hurricane", "audioPath": "audio/ye/yahndi/07 HURRICANE.mp3" },
+        { "title": "Alien", "audioPath": "audio/ye/yahndi/08 ALIEN.mp3" },
+        { "title": "Last Name", "audioPath": "audio/ye/yahndi/09 LAST NAME.mp3" },
+        { "title": "City in the Sky", "audioPath": "audio/ye/yahndi/10 CITY IN THE SKY.mp3" },
+        { "title": "We Got Love", "audioPath": "audio/ye/yahndi/11 WE GOT LOVE.mp3" },
+        { "title": "Law of Attraction", "audioPath": "audio/ye/yahndi/12 LAW OF ATTRACTION.mp3" },
+        { "title": "Cash to Burn", "audioPath": "audio/ye/yahndi/CASH TO BURN.mp3" }
+      ]
+    },
+    {
+      "id": "yeezus2",
+      "title": "Yeezus 2",
+      "coverPath": "albumcvers/yeezus2.jpg",
+      "tracks": [
+        { "title": "The World", "audioPath": "audio/ye/yeezus2/1 The World.mp3" },
+        { "title": "All Day", "audioPath": "audio/ye/yeezus2/2 All Day.mp3" },
+        { "title": "Special", "audioPath": "audio/ye/yeezus2/3 Special.mp3" },
+        { "title": "Fall Out of Heaven", "audioPath": "audio/ye/yeezus2/4 Fall Out Of Heaven.mp3" },
+        { "title": "Forever", "audioPath": "audio/ye/yeezus2/5 Forever.mp3" },
+        { "title": "Pressure", "audioPath": "audio/ye/yeezus2/6 Pressure.mp3" },
+        { "title": "God Level", "audioPath": "audio/ye/yeezus2/7 God Level.mp3" },
+        { "title": "After You", "audioPath": "audio/ye/yeezus2/8 After You.mp3" },
+        { "title": "I Feel Like That", "audioPath": "audio/ye/yeezus2/9 I Feel Like That.mp3" },
+        { "title": "Only One", "audioPath": "audio/ye/yeezus2/10 Only One.mp3" },
+        { "title": "I Feel Like That pt 2 (ft. Frank Ocean) [Bonus Track]", "audioPath": "audio/ye/yeezus2/11 I Feel Like That pt 2 ft. Frank Ocean [Bonus Track].mp3" }
+      ]
+    },
+    {
+      "id": "cuck",
+      "title": "Cuck",
+      "coverPath": "albumcvers/cuck.jpeg",
+      "tracks": [
+        { "title": "WW3", "audioPath": "audio/ye/cuck/WW3.m4a" },
+        { "title": "Bianca", "audioPath": "audio/ye/cuck/BIANCA.mp3" },
+        { "title": "Hitlerye Jesus", "audioPath": "audio/ye/cuck/HITLER YE JESUS.mp3" },
+        { "title": "Virgil", "audioPath": "audio/ye/cuck/VIRGIL.mp3" },
+        { "title": "Jared", "audioPath": "audio/ye/cuck/JARED.mp3" },
+        { "title": "Magazines", "audioPath": "audio/ye/cuck/MAGAZINES.mp3" },
+        { "title": "Cosby", "audioPath": "audio/ye/cuck/COSBY.mp3" },
+        { "title": "Cousins", "audioPath": "audio/ye/cuck/COUSINS.mp3" },
+        { "title": "Dirty Magazines (feat. Cyhi)", "audioPath": "audio/ye/cuck/DIRTY MAGAZINES (feat. Cyhi).mp3" },
+        { "title": "Jesus", "audioPath": "audio/ye/cuck/JESUS.mp3" },
+        { "title": "Heil Hitler", "audioPath": "audio/ye/cuck/HEIL HITLER.mp3" },
+        { "title": "Nitrous", "audioPath": "audio/ye/cuck/NITROUS.mp3" },
+        { "title": "Gas Chambers", "audioPath": "audio/ye/cuck/GAS CHAMBERS.mp3" }
+      ]
+    },
+    {
+      "id": "jik2",
+      "title": "Jesus Is King 2",
+      "coverPath": "albumcvers/jesusisking2.jpg",
+      "tracks": [
+        { "title": "Every Hour/Selah (feat. Martha Ambrosius, Dr. Dre & Sunday Service Choir)", "audioPath": "audio/ye/jik2/Intro_Every_Hour_Selah.mp3" },
+        { "title": "LA Monster (feat. A$AP Ferg)", "audioPath": "audio/ye/jik2/02 LA Monster 01JUL2020.mp3" },
+        { "title": "Water (feat. Victory & Ant Clemons)", "audioPath": "audio/ye/jik2/03 Water (Remix) RE4 3.8 Main_4424_04MAR2020.mp3" },
+        { "title": "Closed On Sunday (feat. Anderson Paak)", "audioPath": "audio/ye/jik2/04 Closed On Sunday (Remix) RE2 3.5 Main_4424_24FEB2020.mp3" },
+        { "title": "On God (feat. THURZ)", "audioPath": "audio/ye/jik2/05 On God (Remix) 02DEC2019.mp3" },
+        { "title": "Hands On (feat. Travis Scott & Fred Hammond)", "audioPath": "audio/ye/jik2/06 Hands On (Remix) 3.2 Main_4424__02MAR2020.mp3" },
+        { "title": "Everything We Need (feat. Ty Dolla $ign, Ant Clemons & Martha Ambrosius)", "audioPath": "audio/ye/jik2/07 Everything We Need (Remix) RE2 2.1 Main_4424__02MAR2020.mp3" },
+        { "title": "Ashes (feat. Sunday Service Choir & Nikki Grier)", "audioPath": "audio/ye/jik2/Up_From_The_Ashes_7.23.20.mp3" },
+        { "title": "Follow God", "audioPath": "audio/ye/jik2/AUDIO 3865.m4a" },
+        { "title": "God Is (feat. Sunday Service Choir)", "audioPath": "audio/ye/jik2/9 God Is (Remix) 3.1 Main_4424__02MAR2020.mp3" },
+        { "title": "Use This Gospel (feat. Eminem)", "audioPath": "audio/ye/jik2/10 Use This Gospel (Remix) RE2 3.8_MAIN.m4a" },
+        { "title": "This Is The Glory (feat. Dr. Dre & Snoop Dogg)", "audioPath": "audio/ye/jik2/05_Glory_4.6_Final_Main.mp3" }
+      ]
+    }
+  ],
+  "lpsMvs": []
+}

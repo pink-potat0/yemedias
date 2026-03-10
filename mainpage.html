@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>yemedia</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="stylesheet" href="sytle.css">
+</head>
+<body class="mainpage">
+    <div class="mainpage-layout">
+        <nav class="topbar">
+            <a href="index.html" class="topbar-logo" aria-label="yemedia"><img src="favicon.png" alt="" class="topbar-logo-icon"></a>
+            <input type="search" class="topbar-search" placeholder="Search" aria-label="Search">
+            <button type="button" class="topbar-menu-btn" id="topbar-menu-btn" aria-label="Menu" aria-expanded="false">
+                <img class="topbar-menu-icon" src="playericon/icons8-hamburger-48.png" alt="" aria-hidden="true">
+            </button>
+        </nav>
+        <div class="mainpage-body">
+        <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+        <aside class="sidebar-menu" id="sidebar-menu">
+            <button type="button" class="sidebar-close-btn" id="sidebar-close-btn" aria-label="Close menu"><img class="sidebar-close-icon" src="playericon/icons8-cancel-48.png" alt="" aria-hidden="true"></button>
+            <button type="button" class="sidebar-btn is-active" data-view="unrlsd">unrlsd albms</button>
+            <button type="button" class="sidebar-btn" data-view="lpsmvs">LPs & MVs</button>
+        </aside>
+        <main class="main-panel">
+            <div class="covers-grid">
+                <!-- Filled by mainpage.js from data/albums.json -->
+            </div>
+        </main>
+        </div>
+        <div id="mainpage-player" class="mainpage-player" aria-live="polite">
+            <div class="mainpage-player-left">
+                <span id="mainpage-player-title" class="mainpage-player-title"></span>
+            </div>
+            <div class="mainpage-player-center">
+                <audio id="mainpage-audio" class="mainpage-audio-native"></audio>
+                <div class="mainpage-player-controls">
+                    <button type="button" id="mainpage-player-prev" class="mainpage-player-ctrl" aria-label="Previous"><img class="mainpage-player-ctrl-icon" src="playericon/icons8-skip-to-start-48.png" alt="" aria-hidden="true"></button>
+                    <button type="button" id="mainpage-player-play" class="mainpage-player-play-btn" aria-label="Play"><span class="mainpage-player-play-icon" aria-hidden="true"><img id="mainpage-player-play-icon-img" class="mainpage-player-play-icon-img" src="playericon/icons8-play-48.png" alt="" aria-hidden="true"></span></button>
+                    <button type="button" id="mainpage-player-next" class="mainpage-player-ctrl" aria-label="Next"><img class="mainpage-player-ctrl-icon" src="playericon/icons8-skip-48.png" alt="" aria-hidden="true"></button>
+                </div>
+                <div class="mainpage-player-progress-wrap">
+                    <span class="mainpage-player-time" id="mainpage-player-current">0:00</span>
+                    <input type="range" id="mainpage-player-seek" class="mainpage-player-seek" min="0" max="100" value="0" aria-label="Seek" />
+                    <span class="mainpage-player-time" id="mainpage-player-duration">0:00</span>
+                </div>
+            </div>
+            <div class="mainpage-player-right">
+                <button type="button" id="mainpage-player-expand" class="mainpage-player-expand" aria-label="Expand player"><img class="mainpage-player-expand-icon" src="playericon/icons8-full-48.png" alt="" aria-hidden="true"></button>
+            </div>
+        </div>
+        <div id="mainpage-player-expanded" class="mainpage-player-expanded" aria-hidden="true">
+            <div class="mainpage-player-expanded-blur" id="mainpage-player-expanded-blur" aria-hidden="true"></div>
+            <div class="mainpage-player-expanded-inner" id="mainpage-player-expanded-inner">
+                <div class="mainpage-player-expanded-top-right">
+                    <button type="button" class="mainpage-player-expanded-close" id="mainpage-player-expanded-close" aria-label="Close"><img class="mainpage-player-expanded-close-icon" src="playericon/icons8-cancel-48.png" alt="" aria-hidden="true"></button>
+                </div>
+                <div class="mainpage-player-expanded-cover-section">
+                    <div class="mainpage-player-expanded-cover-wrap">
+                        <img id="mainpage-player-expanded-cover-img" src="" alt="" />
+                    </div>
+                    <div class="mainpage-player-expanded-now-playing">
+                        <h3 class="mainpage-player-expanded-track-title" id="mainpage-player-expanded-track-title"></h3>
+                        <p class="mainpage-player-expanded-track-meta" id="mainpage-player-expanded-track-meta"></p>
+                        <button type="button" class="mainpage-player-expanded-like" id="mainpage-player-expanded-like" aria-label="Save to Favourites" title="Save to Favourites">
+                            <img class="mainpage-player-expanded-like-icon" id="mainpage-player-expanded-like-icon-img" src="playericon/icons8-favourite-48.png" alt="" aria-hidden="true" loading="eager">
+                        </button>
+                        <div class="mainpage-player-expanded-progress-wrap">
+                            <span class="mainpage-player-time" id="mainpage-player-expanded-current">0:00</span>
+                            <input type="range" id="mainpage-player-expanded-seek" class="mainpage-player-seek" min="0" max="100" value="0" aria-label="Seek" />
+                            <span class="mainpage-player-time" id="mainpage-player-expanded-duration">0:00</span>
+                        </div>
+                        <div class="mainpage-player-expanded-controls">
+                            <button type="button" class="mainpage-player-expanded-btn" id="mainpage-player-shuffle" aria-label="Shuffle"><img class="mainpage-player-expanded-btn-icon" src="playericon/icons8-shuffle-48.png" alt="" aria-hidden="true"></button>
+                            <button type="button" class="mainpage-player-expanded-btn" id="mainpage-player-expanded-prev" aria-label="Previous"><img class="mainpage-player-expanded-btn-icon" src="playericon/icons8-skip-to-start-48.png" alt="" aria-hidden="true"></button>
+                            <button type="button" class="mainpage-player-expanded-play" id="mainpage-player-expanded-play" aria-label="Play"><span class="mainpage-player-expanded-play-icon" aria-hidden="true"><img id="mainpage-player-expanded-play-icon-img" class="mainpage-player-expanded-play-icon-img" src="playericon/icons8-play-48.png" alt="" aria-hidden="true"></span></button>
+                            <button type="button" class="mainpage-player-expanded-btn" id="mainpage-player-expanded-next" aria-label="Next"><img class="mainpage-player-expanded-btn-icon" src="playericon/icons8-skip-48.png" alt="" aria-hidden="true"></button>
+                            <button type="button" class="mainpage-player-expanded-btn" id="mainpage-player-repeat" aria-label="Repeat"><img id="mainpage-player-repeat-icon-img" class="mainpage-player-expanded-btn-icon" src="playericon/icons8-repeat-48.png" alt="" aria-hidden="true"></button>
+                        </div>
+                        <div class="mainpage-player-expanded-volume-wrap">
+                            <span class="mainpage-player-expanded-volume-icon" aria-hidden="true"><img id="mainpage-player-volume-icon-img" class="mainpage-player-volume-icon-img" src="playericon/icons8-speaker-48.png" alt="" aria-hidden="true"></span>
+                            <input type="range" id="mainpage-player-expanded-volume" class="mainpage-player-seek mainpage-player-volume" min="0" max="100" value="100" aria-label="Volume" />
+                        </div>
+                    </div>
+                </div>
+                <div class="mainpage-player-expanded-tracks">
+                    <div class="mainpage-player-expanded-tracks-head">
+                        <div class="mainpage-player-expanded-tracks-head-text">
+                            <h2 class="mainpage-player-expanded-album-title" id="mainpage-player-expanded-album-title"></h2>
+                            <p class="mainpage-player-expanded-meta" id="mainpage-player-expanded-meta"></p>
+                        </div>
+                        <button type="button" class="mainpage-player-expanded-play-all mainpage-player-expanded-play-all-tracks" id="mainpage-player-expanded-play-all" aria-label="Play all">
+                            <img class="mainpage-player-expanded-play-all-icon" src="playericon/icons8-play-48.png" alt="" aria-hidden="true">
+                        </button>
+                    </div>
+                    <ul id="mainpage-player-tracklist" class="mainpage-player-tracklist"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="mainpage-toast" class="mainpage-toast" aria-live="polite" role="status"></div>
+    <script src="mainpage.js"></script>
+    <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0" aria-hidden="true">
+        <defs>
+            <symbol id="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></symbol>
+            <symbol id="icon-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></symbol>
+            <symbol id="icon-prev" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6V6zm3.5 6l8.5 6V6l-8.5 6z"/></symbol>
+            <symbol id="icon-next" viewBox="0 0 24 24" fill="currentColor"><path d="M8 6v12l8.5-6L8 6zm10 4v8h2V6h-2v8z"/></symbol>
+            <symbol id="icon-shuffle" viewBox="0 0 24 24" fill="currentColor"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></symbol>
+            <symbol id="icon-repeat" viewBox="0 0 24 24" fill="currentColor"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></symbol>
+            <symbol id="icon-volume" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></symbol>
+            <symbol id="icon-close" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></symbol>
+            <symbol id="icon-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></symbol>
+            <symbol id="icon-heart-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></symbol>
+            <symbol id="icon-expand" viewBox="0 0 24 24" fill="currentColor"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></symbol>
+        </defs>
+    </svg>
+</body>
+</html>

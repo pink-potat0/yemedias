@@ -1,0 +1,1743 @@
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background-color: #1a1a2e;
+    background-image: url(sitebg/gradientbase.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+body.mainpage {
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Toast notification */
+.mainpage-toast {
+    position: fixed;
+    bottom: 5rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(12px);
+    padding: 0.5rem 1rem;
+    background: rgba(92, 255, 158, 0.95);
+    color: #1a1a2e;
+    font-family: "Yung Jakes", "yungjakes", sans-serif;
+    font-size: 0.95rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+}
+
+.mainpage-toast.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Scrollbar styling site-wide */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(92, 255, 158, 0.6) rgba(26, 26, 46, 0.4);
+}
+
+*::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+    background: rgba(26, 26, 46, 0.4);
+    border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: rgba(92, 255, 158, 0.55);
+    border-radius: 5px;
+    border: 1px solid rgba(26, 26, 46, 0.3);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: rgba(92, 255, 158, 0.75);
+}
+
+*::-webkit-scrollbar-thumb:active {
+    background: #5cff9e;
+}
+
+*::-webkit-scrollbar-corner {
+    background: rgba(26, 26, 46, 0.4);
+    border-radius: 5px;
+}
+
+@font-face {
+    font-family: "Yung Jakes";
+    src: local("Yung Jakes New Handwriting"), local("YungJakesNewHandwriting"), url("YungJakesNewHandwriting-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Middle: clouds */
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: url(sitebg/clouds.png);
+    background-size: 150% 100%;
+    background-position: 0% 50%;
+    background-repeat: no-repeat;
+    opacity: 0.5;
+    pointer-events: none;
+    animation: clouds-drift 60s linear infinite;
+}
+
+@media (max-width: 768px) {
+    body::before {
+        background-size: cover;
+    }
+}
+
+/* Front: mountain (painted last so it’s on top) */
+body::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image: url(sitebg/mountains.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+
+.content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    color: #2dd46c;
+    font-family: "Yung Jakes", "yungjakes", sans-serif;
+    font-size: 1.6rem;
+}
+
+.album-covers {
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.album-covers .album-cover {
+    position: absolute;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.copyright {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    text-align: center;
+    padding: 0.75rem;
+    color: #2dd46c;
+    font-family: "Yung Jakes", "yungjakes", sans-serif;
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+.content h1,
+.content p,
+.content button,
+.content .content-btn {
+    margin: 0.25em 0;
+}
+
+.content h1 {
+    font-size: 3.75rem;
+}
+
+.content p {
+    font-size: 1.85rem;
+}
+
+.content button,
+.content .content-btn {
+    color: inherit;
+    font-family: inherit;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.65em 1.5em;
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(
+        135deg,
+        rgba(80, 220, 120, 0.25) 0%,
+        rgba(60, 180, 100, 0.12) 50%,
+        rgba(40, 140, 80, 0.18) 100%
+    );
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        0 4px 24px rgba(45, 212, 108, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.content .content-btn {
+    text-decoration: none;
+    display: inline-block;
+}
+
+.content button:hover,
+.content .content-btn:hover {
+    transform: translateY(-1px);
+    background: linear-gradient(
+        135deg,
+        rgba(80, 220, 120, 0.32) 0%,
+        rgba(60, 180, 100, 0.18) 50%,
+        rgba(40, 140, 80, 0.24) 100%
+    );
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.28),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.08),
+        0 8px 32px rgba(45, 212, 108, 0.22);
+}
+
+.content button:active,
+.content .content-btn:active {
+    transform: translateY(0);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        inset 0 2px 8px rgba(0, 0, 0, 0.15),
+        0 2px 12px rgba(45, 212, 108, 0.12);
+}
+
+@keyframes clouds-drift {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+/* ========== Mainpage layout (glassmorphism UI) ========== */
+.mainpage .mainpage-layout {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    min-height: 0;
+    padding: 1rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.mainpage .topbar {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    max-width: 100%;
+    padding: 0.6rem 1.25rem;
+    margin-bottom: 1rem;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 14px;
+    font-family: "Yung Jakes", "yungjakes", sans-serif;
+    color: #4ae88a;
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.mainpage .topbar-logo {
+    color: #5cff9e;
+    text-decoration: none;
+    font-size: 1.65rem;
+    padding: 0.25em;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    white-space: nowrap;
+    text-shadow: 0 0 16px rgba(0, 0, 0, 0.35), 0 1px 2px rgba(0, 0, 0, 0.25);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mainpage .topbar-logo-icon {
+    display: block;
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.mainpage .topbar-search {
+    flex: 1;
+    max-width: 320px;
+    margin: 0 auto;
+    padding: 0.55em 1em;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(45, 212, 108, 0.5);
+    border-radius: 999px;
+    color: #5cff9e;
+    font-family: "Yung Jakes", "yungjakes", sans-serif;
+    font-size: 1.2rem;
+    text-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+}
+
+.mainpage .topbar-search::placeholder {
+    color: #4ae88a;
+    opacity: 1;
+}
+
+.mainpage .topbar-menu-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: #5cff9e;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.mainpage .topbar-menu-btn:hover {
+    opacity: 0.85;
+    transform: scale(1.05);
+}
+.mainpage .topbar-menu-icon {
+    width: 24px;
+    height: 24px;
+    display: block;
+    object-fit: contain;
+}
+
+.mainpage .mainpage-body {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    gap: 1rem;
+}
+
+.mainpage .sidebar-menu {
+    width: 180px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(45, 212, 108, 0.35);
+    border-radius: 14px;
+    font-family: "Yung Jakes", "yungjakes", sans-serif;
+    color: #5cff9e;
+    align-self: stretch;
+    text-shadow: 0 0 14px rgba(0, 0, 0, 0.35), 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+.mainpage .sidebar-close-btn {
+    display: none;
+}
+
+.mainpage .sidebar-close-icon {
+    width: 24px;
+    height: 24px;
+    display: block;
+    object-fit: contain;
+}
+
+.mainpage .sidebar-overlay {
+    display: none;
+}
+
+.mainpage .sidebar-item {
+    font-size: 1.25rem;
+}
+
+.mainpage .sidebar-btn {
+    display: block;
+    width: 100%;
+    padding: 0.6em 0.85em;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(45, 212, 108, 0.35);
+    border-radius: 10px;
+    color: #5cff9e;
+    font-family: "Yung Jakes", "yungjakes", sans-serif;
+    font-size: 1.25rem;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.2s ease, border-color 0.2s ease;
+    text-shadow: 0 0 12px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.mainpage .sidebar-btn:hover {
+    background: rgba(45, 212, 108, 0.15);
+    border-color: rgba(45, 212, 108, 0.55);
+    color: #6effa8;
+}
+
+.mainpage .main-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: 1.25rem;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(45, 212, 108, 0.35);
+    border-radius: 14px;
+    overflow: auto;
+}
+
+.mainpage .covers-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 1rem;
+    min-height: min-content;
+}
+
+.mainpage .cover-placeholder {
+    aspect-ratio: 1;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: none;
+}
+
+.mainpage .album-card {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.06);
+    transition: transform 0.25s ease;
+}
+
+.mainpage .album-card:hover {
+    transform: scale(0.92);
+}
+
+.mainpage .album-card-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.mainpage .album-card-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.mainpage .album-card.has-tracks .album-card-overlay {
+    justify-content: flex-end;
+    padding-bottom: 0.5rem;
+}
+
+.mainpage .album-card-play-corner {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    margin-top: auto;
+}
+
+.mainpage .album-card:hover .album-card-overlay {
+    opacity: 1;
+}
+
+.mainpage .album-card-title {
+    color: #5cff9e;
+    font-family: "Yung Jakes", "yungjakes", sans-serif;
+    font-size: 1rem;
+    text-align: center;
+    padding: 0 0.5rem;
+    text-shadow: 0 0 8px rgba(0,0,0,0.5);
+}
+
+.mainpage .album-card-play:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+}
+
+.mainpage .album-card-play {
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: #5cff9e;
+    font-size: 1.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    font-family: "Yung Jakes", "yungjakes", sans-serif;
+}
+
+.mainpage .album-card-play-icon {
+    width: 28px;
+    height: 28px;
+    display: block;
+    object-fit: contain;
+}
+
+/* Search results: list of matching tracks */
+.mainpage .mainpage-search-results {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.5rem 0;
+    min-height: 0;
+}
+
+.mainpage .mainpage-search-result-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.65rem 1rem;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.mainpage .mainpage-search-result-row:hover {
+    background: rgba(92, 255, 158, 0.1);
+}
+
+.mainpage .mainpage-search-result-cover {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mainpage .mainpage-search-result-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.mainpage .mainpage-search-result-title {
+    color: #fff;
+    font-family: "Yung Jakes", "yungjakes", sans-serif;
+    font-size: 1.05rem;
+    font-weight: bold;
+}
+
+.mainpage .mainpage-search-result-meta {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+}
+
+.mainpage .mainpage-search-result-play {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #5cff9e;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.mainpage .mainpage-search-result-play:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+}
+
+.mainpage .mainpage-search-result-play-icon {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.mainpage .sidebar-btn.is-active {
+    background: rgba(45, 212, 108, 0.25);
+    border-color: rgba(45, 212, 108, 0.6);
+}
+
+.mainpage .mainpage-player {
+    position: fixed;
+    bottom: 0.75rem;
+    left: 0.75rem;
+    right: 0.75rem;
+    z-index: 10;
+    padding: 0.6rem 1rem;
+    background: rgba(var(--miniplayer-glass-r, 48), var(--miniplayer-glass-g, 48), var(--miniplayer-glass-b, 65), 0.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(var(--miniplayer-glass-r, 45), var(--miniplayer-glass-g, 212), var(--miniplayer-glass-b, 108), 0.4);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    transform: translateY(calc(100% + 1rem));
+    transition: transform 0.25s ease, background 0.35s ease, border-color 0.35s ease;
+}
+
+.mainpage .mainpage-player.is-visible {
+    transform: translateY(0);
+}
+
+/* Desktop: smaller mini player height */
+@media (min-width: 769px) {
+    .mainpage .mainpage-player {
+        padding: 0.35rem 0.85rem;
+        gap: 0.65rem;
+    }
+    .mainpage .mainpage-player-title {
+        font-size: 0.88rem;
+    }
+    .mainpage .mainpage-player-center {
+        gap: 0.2rem;
+    }
+    .mainpage .mainpage-player-ctrl {
+        width: 38px;
+        height: 38px;
+    }
+    .mainpage .mainpage-player-ctrl-icon {
+        width: 20px;
+        height: 20px;
+    }
+    .mainpage .mainpage-player-play-btn {
+        width: 42px;
+        height: 42px;
+    }
+    .mainpage .mainpage-player-play-btn .mainpage-player-play-icon-img {
+        width: 22px;
+        height: 22px;
+    }
+    .mainpage .mainpage-player-expand {
+        width: 38px;
+        height: 38px;
+    }
+    .mainpage .mainpage-player-expand-icon {
+        width: 20px;
+        height: 20px;
+    }
+    .mainpage .mainpage-player-time {
+        font-size: 0.75rem;
+    }
+    .mainpage .mainpage-player-seek {
+        height: 5px;
+    }
+}
+
+/* Mobile track list: ensure mini player slide-up animation runs when it appears */
+@media (max-width: 768px) {
+    .mainpage.tracklist-view-open .mainpage-player {
+        transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .mainpage.tracklist-view-open .mainpage-player:not(.is-visible) {
+        transform: translateY(calc(100% + 1rem));
+    }
+    .mainpage .mainpage-player-title {
+        font-size: 1.1rem;
+    }
+    .mainpage .mainpage-player-time {
+        font-size: 0.95rem;
+    }
+}
+
+/* Hide mini player when expanded view is open (desktop: always; mobile: only in now-playing full view) */
+.mainpage.expanded-view-open .mainpage-player {
+    transform: translateY(100%);
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Mobile track list view: show mini player as overlay on top */
+.mainpage.tracklist-view-open .mainpage-player {
+    z-index: 25;
+}
+
+.mainpage .mainpage-player-left {
+    flex: 1;
+    min-width: 0;
+    max-width: 280px;
+}
+
+.mainpage .mainpage-player-title {
+    color: #5cff9e;
+    font-family: "Yung Jakes", "yungjakes", sans-serif;
+    font-size: 0.95rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+}
+
+.mainpage .mainpage-audio-native {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.mainpage .mainpage-player-center {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    max-width: 480px;
+    min-width: 0;
+}
+
+.mainpage .mainpage-player-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.mainpage .mainpage-player-ctrl {
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: #5cff9e;
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.mainpage .player-icon {
+    width: 20px;
+    height: 20px;
+    display: block;
+    color: inherit;
+}
+
+.mainpage .mainpage-player-play-btn .player-icon,
+.mainpage .mainpage-player-expanded-play .player-icon {
+    width: 22px;
+    height: 22px;
+}
+
+.mainpage .mainpage-player-play-icon-img,
+.mainpage .mainpage-player-expanded-play-icon-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.mainpage .mainpage-player-play-btn .mainpage-player-play-icon-img {
+    width: 32px;
+    height: 32px;
+}
+
+.mainpage .mainpage-player-expanded-play .mainpage-player-expanded-play-icon-img {
+    width: 42px;
+    height: 42px;
+}
+
+.mainpage .mainpage-player-expanded-close .player-icon,
+.mainpage .mainpage-player-expanded-close-icon {
+    width: 26px;
+    height: 26px;
+}
+
+.mainpage .mainpage-player-expanded-close-icon {
+    display: block;
+    object-fit: contain;
+}
+
+.mainpage .mainpage-player-expanded-btn .player-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.mainpage .mainpage-player-ctrl-icon,
+.mainpage .mainpage-player-expanded-btn-icon {
+    display: block;
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+}
+
+.mainpage .mainpage-player-ctrl .mainpage-player-ctrl-icon {
+    width: 28px;
+    height: 28px;
+}
+
+.mainpage .mainpage-player-expanded-volume-icon .player-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.mainpage .mainpage-player-ctrl:hover {
+    opacity: 0.85;
+    transform: scale(1.05);
+}
+
+.mainpage .mainpage-player-play-btn {
+    width: 56px;
+    height: 56px;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: #5cff9e;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.mainpage .mainpage-player-play-btn .mainpage-player-play-icon {
+    display: inline-block;
+    line-height: 1;
+}
+
+.mainpage .mainpage-player-play-btn:hover {
+    opacity: 0.9;
+    transform: scale(1.03);
+}
+
+.mainpage .mainpage-player-expand {
+    width: 52px;
+    height: 52px;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: #5cff9e;
+    font-size: 1.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.mainpage .mainpage-player-expand:hover {
+    opacity: 0.85;
+    transform: scale(1.05);
+}
+
+.mainpage .mainpage-player-expand .player-icon,
+.mainpage .mainpage-player-expand-icon {
+    width: 26px;
+    height: 26px;
+}
+
+.mainpage .mainpage-player-expand-icon {
+    display: block;
+    object-fit: contain;
+}
+
+.mainpage .mainpage-player-progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.mainpage .mainpage-player-time {
+    color: rgba(92, 255, 158, 0.9);
+    font-family: "Yung Jakes", "yungjakes", sans-serif;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+}
+
+.mainpage .mainpage-player-seek {
+    flex: 1;
+    height: 6px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 3px;
+}
+
+.mainpage .mainpage-player-seek::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #5cff9e;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(92, 255, 158, 0.5);
+}
+
+.mainpage .mainpage-player-seek::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #5cff9e;
+    cursor: pointer;
+    border: none;
+}
+
+.mainpage .mainpage-player-right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    max-width: 120px;
+}
+
+.mainpage .mainpage-player-expand {
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: #5cff9e;
+    font-size: 1.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.mainpage .mainpage-player-expand:hover {
+    opacity: 0.85;
+    transform: scale(1.05);
+}
+
+.mainpage .mainpage-player-expanded {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    background: transparent;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.28s ease, visibility 0.28s ease;
+}
+
+.mainpage .mainpage-player-expanded.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mainpage .mainpage-player-expanded.is-visible .mainpage-player-expanded-blur {
+    opacity: 1;
+}
+
+.mainpage .mainpage-player-expanded-blur {
+    position: absolute;
+    inset: -20%;
+    z-index: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(80px);
+    -webkit-filter: blur(80px);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.mainpage .mainpage-player-expanded-blur::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    pointer-events: none;
+}
+
+.mainpage .mainpage-player-expanded-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    padding-right: 4rem;
+    gap: 2.5rem;
+    box-sizing: border-box;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.32s ease 0.06s, transform 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.06s;
+}
+
+/* Desktop: now playing (cover + controls) on the left, track list (data) on the right */
+.mainpage .mainpage-player-expanded-cover-section {
+    order: -1;
+}
+.mainpage .mainpage-player-expanded-tracks {
+    order: 0;
+}
+
+.mainpage .mainpage-player-expanded.is-visible .mainpage-player-expanded-inner {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.mainpage .mainpage-player-expanded-close {
+    position: relative;
+    top: auto;
+    right: auto;
+    z-index: 21;
+    order: 0;
+    width: 52px;
+    height: 52px;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: #5cff9e;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: opacity 0.25s ease 0.15s, transform 0.25s ease 0.15s;
+    opacity: 1;
+    transform: scale(1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mainpage .mainpage-player-expanded-top-right {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 21;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.mainpage .mainpage-player-expanded.is-visible .mainpage-player-expanded-close {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.mainpage .mainpage-player-expanded-close:hover {
+    opacity: 0.85;
+    transform: scale(1.05);
+}
+
+.mainpage .mainpage-player-expanded-cover-section {
+    flex-shrink: 0;
+    width: min(40vw, 400px);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.3s ease 0.1s, transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s;
+}
+
+.mainpage .mainpage-player-expanded.is-visible .mainpage-player-expanded-cover-section {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.mainpage .mainpage-player-expanded-cover-wrap {
+    flex-shrink: 0;
+    width: 100%;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    overflow: hidden;
+    border-radius: 14px;
+}
+
+.mainpage .mainpage-player-expanded-cover-wrap img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+    border-radius: 14px;
+    transform: scale(0.96);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.12s;
+}
+
+.mainpage .mainpage-player-expanded.is-visible .mainpage-player-expanded-cover-wrap img {
+    transform: scale(1);
+}
+
+.mainpage .mainpage-player-expanded-now-playing {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.5rem 1rem;
+    padding: 1.25rem 1.5rem 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+}
+
+.mainpage .mainpage-player-expanded-track-title {
+    grid-column: 1;
+}
+
+.mainpage .mainpage-player-expanded-track-meta {
+    grid-column: 1;
+}
+
+.mainpage .mainpage-player-expanded-like {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    align-self: center;
+    justify-self: end;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease, transform 0.2s ease;
+    visibility: visible;
+}
+
+.mainpage .mainpage-player-expanded-like:hover {
+    color: #5cff9e;
+    transform: scale(1.08);
+}
+
+.mainpage .mainpage-player-expanded-like.is-saved {
+    color: #5cff9e;
+}
+
+.mainpage .mainpage-player-expanded-like .mainpage-player-expanded-like-icon {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+    display: block;
+    transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+.mainpage .mainpage-player-expanded-like.is-saved .mainpage-player-expanded-like-icon {
+    filter: brightness(0) saturate(100%) invert(82%) sepia(42%) saturate(1200%) hue-rotate(87deg) brightness(102%) contrast(101%);
+}
+
+.mainpage .mainpage-player-expanded-progress-wrap {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.mainpage .mainpage-player-expanded-progress-wrap .mainpage-player-seek {
+    flex: 1;
+    min-width: 0;
+}
+
+.mainpage .mainpage-player-expanded-track-title {
+    color: #fff;
+    font-family: "Yung Jakes", "yungjakes", sans-serif;
+    font-size: 1.65rem;
+    font-weight: bold;
+    margin: 0;
+    letter-spacing: 0.02em;
+}
+
+.mainpage .mainpage-player-expanded-track-meta {
+    color: rgba(255, 255, 255, 0.65);
+    font-family: "Yung Jakes", "yungjakes", sans-serif;
+    font-size: 1.05rem;
+    margin: 0 0 0.25rem 0;
+}
+
+.mainpage .mainpage-player-expanded-progress-wrap .mainpage-player-time {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+    flex-shrink: 0;
+}
+
+.mainpage .mainpage-player-expanded-volume-wrap {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.35rem;
+    width: 100%;
+}
+
+.mainpage .mainpage-player-expanded-volume-icon {
+    font-size: 1.15rem;
+    opacity: 0.9;
+    flex-shrink: 0;
+    color: #fff;
+}
+
+.mainpage .mainpage-player-volume-icon-img {
+    display: block;
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    animation: speaker-pulse 1.6s ease-in-out infinite;
+    transition: opacity 0.2s ease;
+}
+
+@keyframes speaker-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.9; transform: scale(1.08); }
+}
+
+.mainpage .mainpage-player-expanded-volume-wrap .mainpage-player-volume {
+    flex: 1;
+    min-width: 0;
+}
+
+.mainpage .mainpage-player-expanded-tracks {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    width: 100%;
+    padding: 1.25rem 1.5rem 1.25rem 0;
+    min-height: 0;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.32s ease 0.15s, transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.15s;
+}
+
+.mainpage .mainpage-player-expanded.is-visible .mainpage-player-expanded-tracks {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.mainpage .mainpage-player-expanded-album-title {
+    color: #5cff9e;
+    font-family: "Yung Jakes", "yungjakes", sans-serif;
+    font-size: 2.1rem;
+    font-weight: bold;
+    margin: 0 0 0.25rem 0;
+    letter-spacing: 0.02em;
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.mainpage .mainpage-player-expanded-tracks-head-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    min-width: 0;
+}
+
+.mainpage .mainpage-player-expanded-tracks-head-text .mainpage-player-expanded-meta {
+    margin: 0;
+}
+
+.mainpage .mainpage-player-expanded-meta {
+    color: rgba(255, 255, 255, 0.65);
+    font-family: "Yung Jakes", "yungjakes", sans-serif;
+    font-size: 1.05rem;
+    margin: 0 0 1.5rem 0;
+}
+
+.mainpage .mainpage-player-expanded-tracks-head {
+    display: flex;
+    align-items: stretch;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.mainpage .mainpage-player-expanded-tracks-head .mainpage-player-expanded-meta {
+    margin: 0;
+}
+
+.mainpage .mainpage-player-expanded-play-all {
+    flex-shrink: 0;
+    width: 64px;
+    min-width: 64px;
+    height: 64px;
+    min-height: 64px;
+    align-self: stretch;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #5cff9e;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.mainpage .mainpage-player-expanded-play-all:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+}
+
+.mainpage .mainpage-player-expanded-play-all-icon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    display: block;
+}
+
+.mainpage .mainpage-player-expanded-controls {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 0;
+}
+
+.mainpage .mainpage-player-expanded-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 0;
+    border: none;
+    background: transparent;
+    color: #5cff9e;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.mainpage .mainpage-player-expanded-btn:hover {
+    opacity: 0.85;
+    transform: scale(1.05);
+}
+
+.mainpage .mainpage-player-expanded-btn.is-active {
+    opacity: 1;
+}
+
+.mainpage .mainpage-player-expanded-play {
+    width: 72px;
+    height: 72px;
+    border-radius: 0;
+    border: none;
+    background: transparent;
+    color: #1a1a2e;
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.mainpage .mainpage-player-expanded-play .mainpage-player-expanded-play-icon {
+    display: inline-block;
+    line-height: 1;
+}
+
+.mainpage .mainpage-player-expanded-play:hover {
+    opacity: 0.9;
+    transform: scale(1.03);
+}
+
+.mainpage .mainpage-player-tracklist {
+    list-style: none;
+    margin: 0;
+    padding: 0.6rem 0;
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0;
+}
+
+.mainpage .mainpage-player-tracklist li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 0.9rem;
+    margin: 0 2px 2px 2px;
+    border-bottom: none;
+    color: rgba(255, 255, 255, 0.9);
+    font-family: "Yung Jakes", "yungjakes", sans-serif;
+    font-size: 1.05rem;
+    transition: background 0.15s ease, color 0.15s ease;
+    border-radius: 10px;
+}
+
+.mainpage .mainpage-player-tracklist li:last-child {
+    margin-bottom: 0;
+}
+
+.mainpage .mainpage-player-tracklist li:hover {
+    background: rgba(92, 255, 158, 0.08);
+}
+
+.mainpage .mainpage-player-tracklist li.is-current {
+    color: #5cff9e;
+    background: rgba(92, 255, 158, 0.12);
+}
+
+.mainpage .mainpage-player-tracklist .track-list-cover {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 6px;
+    flex-shrink: 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mainpage .mainpage-player-tracklist .track-num {
+    width: 1.5rem;
+    flex-shrink: 0;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.95rem;
+}
+
+.mainpage .mainpage-player-tracklist li.is-current .track-num {
+    color: #5cff9e;
+}
+
+.mainpage .mainpage-player-tracklist li button {
+    flex: 1;
+    background: none;
+    border: none;
+    color: inherit;
+    font-family: inherit;
+    font-size: 1.05rem;
+    cursor: pointer;
+    text-align: left;
+    padding: 0;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mainpage .mainpage-error {
+    color: #5cff9e;
+    font-family: "Yung Jakes", "yungjakes", sans-serif;
+    padding: 2rem;
+    grid-column: 1 / -1;
+}
+
+.mainpage .mainpage-error code {
+    background: rgba(0,0,0,0.3);
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+    .mainpage .mainpage-layout {
+        padding: 0.5rem;
+    }
+    .mainpage .topbar {
+        flex-direction: row;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    .mainpage .topbar-logo {
+        flex-shrink: 0;
+    }
+    .mainpage .topbar-search {
+        max-width: none;
+        flex: 1;
+        min-width: 0;
+    }
+    .mainpage .topbar-menu-btn {
+        display: flex;
+    }
+    .mainpage .mainpage-body {
+        flex-direction: column;
+    }
+    .mainpage .sidebar-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 15;
+        background: rgba(0, 0, 0, 0.4);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+    .mainpage.menu-open .sidebar-overlay {
+        display: block;
+        opacity: 1;
+        visibility: visible;
+    }
+    .mainpage .sidebar-menu {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: min(280px, 85vw);
+        max-width: 100%;
+        height: 100vh;
+        z-index: 16;
+        align-self: auto;
+        border-radius: 0;
+        border-left: 1px solid rgba(45, 212, 108, 0.35);
+        transform: translateX(100%);
+        transition: transform 0.28s ease;
+        padding-top: 3.5rem;
+    }
+    .mainpage.menu-open .sidebar-menu {
+        transform: translateX(0);
+    }
+    .mainpage .sidebar-close-btn {
+        display: flex;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        width: 40px;
+        height: 40px;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border: none;
+        border-radius: 0;
+        background: transparent;
+        color: #5cff9e;
+        cursor: pointer;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .mainpage .sidebar-close-btn:hover {
+        opacity: 0.85;
+        transform: scale(1.05);
+    }
+    .mainpage .covers-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+    }
+
+    /* Mini player: only title + play/pause; tap bar to open full album */
+    .mainpage .mainpage-player {
+        cursor: pointer;
+    }
+    .mainpage .mainpage-player .mainpage-player-ctrl {
+        display: none;
+    }
+    .mainpage .mainpage-player .mainpage-player-progress-wrap {
+        display: none;
+    }
+    .mainpage .mainpage-player .mainpage-player-right {
+        display: none;
+    }
+    .mainpage .mainpage-player-center {
+        flex: 0 0 auto;
+        max-width: none;
+    }
+    .mainpage .mainpage-player-left {
+        flex: 1;
+        max-width: none;
+        cursor: pointer;
+    }
+
+    /* Show album card actions on touch (no hover); don't dim the cover */
+    .mainpage .album-card-overlay {
+        opacity: 0.92;
+        background: transparent;
+    }
+    .mainpage .album-card:hover .album-card-overlay {
+        opacity: 1;
+    }
+    .mainpage .album-card-title {
+        opacity: 0;
+    }
+    .mainpage .album-card:hover .album-card-title {
+        opacity: 1;
+    }
+    .mainpage .album-card-play {
+        width: 56px;
+        height: 56px;
+    }
+    .mainpage .album-card-play-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    /* Expanded player: glass over cover blur (no opaque bg) */
+    .mainpage .mainpage-player-expanded-inner {
+        flex-direction: column;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 1rem;
+        padding-top: 3.25rem;
+        padding-right: 1rem;
+        padding-bottom: 2rem;
+        gap: 0;
+        -webkit-overflow-scrolling: touch;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border-radius: 0;
+        transform: translateY(24px);
+        transition: opacity 0.35s ease 0.05s, transform 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.05s;
+    }
+    .mainpage .mainpage-player-expanded.is-visible .mainpage-player-expanded-inner {
+        transform: translateY(0);
+    }
+    /* Mobile: single column, reset order so layout is DOM order */
+    .mainpage .mainpage-player-expanded-tracks,
+    .mainpage .mainpage-player-expanded-cover-section {
+        order: 0;
+    }
+    .mainpage .mainpage-player-expanded-cover-section {
+        width: 100%;
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transform: translateY(16px);
+        transition: opacity 0.32s ease 0.12s, transform 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.12s;
+    }
+    .mainpage .mainpage-player-expanded.is-visible .mainpage-player-expanded-cover-section {
+        transform: translateY(0);
+    }
+    .mainpage .mainpage-player-expanded-cover-wrap {
+        width: min(90vw, 380px);
+        max-width: 100%;
+        flex-shrink: 0;
+        align-self: center;
+    }
+    .mainpage .mainpage-player-expanded.is-visible .mainpage-player-expanded-cover-wrap img {
+        transform: scale(1);
+    }
+    .mainpage .mainpage-player-expanded-cover-wrap img {
+        transform: scale(0.94);
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.14s;
+    }
+    .mainpage .mainpage-player-expanded-now-playing {
+        width: min(90vw, 380px);
+        max-width: 100%;
+        flex: 1;
+        justify-content: center;
+        padding-top: 1.25rem;
+        padding-bottom: 2rem;
+    }
+    .mainpage .mainpage-player-expanded-track-title {
+        font-size: 1.5rem;
+    }
+    /* Mobile: album cover tap → tracklist only */
+    .mainpage .mainpage-player-expanded[data-expanded-mode="tracklist"] .mainpage-player-expanded-cover-section {
+        display: none;
+    }
+    .mainpage .mainpage-player-expanded[data-expanded-mode="tracklist"] .mainpage-player-expanded-tracks {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        min-height: 0;
+        min-width: 0;
+        width: 100%;
+        padding: 0.75rem 1.5rem 0.75rem 1rem;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        transform: translateY(20px);
+        transition: opacity 0.32s ease 0.08s, transform 0.36s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.08s;
+    }
+    .mainpage .mainpage-player-expanded.is-visible[data-expanded-mode="tracklist"] .mainpage-player-expanded-tracks {
+        transform: translateY(0);
+    }
+    .mainpage .mainpage-player-expanded[data-expanded-mode="tracklist"] .mainpage-player-expanded-inner {
+        justify-content: flex-start;
+        padding-top: 4.25rem;
+    }
+    .mainpage .mainpage-player-expanded[data-expanded-mode="tracklist"] .mainpage-player-expanded-tracklist {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    /* Mobile: mini player tap → now playing only */
+    .mainpage .mainpage-player-expanded[data-expanded-mode="nowplaying"] .mainpage-player-expanded-tracks {
+        display: none;
+    }
+    .mainpage .mainpage-player-expanded-tracks {
+        display: none;
+    }
+    .mainpage .mainpage-player-expanded-close {
+        top: auto;
+        right: auto;
+        width: 56px;
+        height: 56px;
+        font-size: 1.5rem;
+    }
+    .mainpage .mainpage-player-expanded-top-right {
+        top: 0.5rem;
+        right: 0.5rem;
+    }
+    /* Mobile: larger touch targets for player buttons */
+    .mainpage .mainpage-player-play-btn {
+        width: 64px;
+        height: 64px;
+    }
+    .mainpage .mainpage-player-play-btn .mainpage-player-play-icon-img {
+        width: 40px;
+        height: 40px;
+    }
+    .mainpage .mainpage-player-expanded-btn {
+        width: 64px;
+        height: 64px;
+    }
+    .mainpage .mainpage-player-expanded-btn-icon {
+        width: 32px;
+        height: 32px;
+    }
+    .mainpage .mainpage-player-expanded-play {
+        width: 80px;
+        height: 80px;
+    }
+    .mainpage .mainpage-player-expanded-play .mainpage-player-expanded-play-icon-img {
+        width: 48px;
+        height: 48px;
+    }
+    .mainpage .mainpage-player-expanded-blur {
+        inset: -15%;
+    }
+}
