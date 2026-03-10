@@ -1,0 +1,9 @@
+{
+  "rewrites": [
+    {
+      "source": "/mainpage",
+      "destination": "/mainpage.html"
+    }
+  ]
+}
+

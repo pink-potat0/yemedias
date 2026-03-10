@@ -212,6 +212,14 @@
 
     function openVideoPlayer(album) {
         if (!album.videoUrl) return;
+        
+        // Pause any currently playing audio
+        var audio = document.getElementById("mainpage-audio");
+        if (audio && !audio.paused) {
+            audio.pause();
+            updatePlayPauseButtons();
+        }
+        
         var videoUrl = album.videoUrl;
         
         // Convert Bilibili URL to embed URL if needed
