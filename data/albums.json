@@ -230,11 +230,102 @@
   ],
   "lpsMvs": [
     {
-      "id": "donda-lp-atlanta",
-      "title": "DONDA ATLANTA LP",
+      "id": "donda-lp-1",
+      "title": "DONDA LP 1",
       "fullTitle": "Kanye West 'DONDA' Listening Party atlanta",
       "coverPath": "albumcvers/dondalpatlanta.jpg",
       "videoUrl": "https://www.bilibili.com/video/BV17U4y1n7kN"
+    },
+    {
+      "id": "donda-lp-2",
+      "title": "DONDA LP 2",
+      "fullTitle": "DONDA LP 2 Mercedes-Benz Stadium",
+      "coverPath": "albumcvers/dondalp2.jpg",
+      "videoUrl": "https://www.bilibili.com/video/BV1WA411P7Um"
+    },
+    {
+      "id": "donda-lp-3",
+      "title": "DONDA LP 3",
+      "fullTitle": "DONDA LP 3, Soldier Field (Chicago)",
+      "coverPath": "albumcvers/dondalp3.jpg",
+      "videoUrl": "https://www.bilibili.com/video/BV1zh411W7i1"
+    },
+    {
+      "id": "free-larry-hoover",
+      "title": "FREE LARRY HOOVER",
+      "fullTitle": "FREE LARRY HOOVER, kanye West & drake",
+      "coverPath": "albumcvers/freelarryhover.jpg",
+      "videoUrl": "https://www.bilibili.com/video/BV13Q4y1e7sG"
+    },
+    {
+      "id": "donda-2-lp",
+      "title": "DONDA 2 LP",
+      "fullTitle": "DONDA 2 LP, LoanDepot Park (Miami)",
+      "coverPath": "albumcvers/DONDA2LP.jpg",
+      "videoUrl": "https://www.bilibili.com/video/BV1XR4y1V7eF"
+    },
+    {
+      "id": "rolling-loud-la-2021",
+      "title": "Rolling loud LA 2021",
+      "fullTitle": "Rolling loud LA 2021",
+      "coverPath": "albumcvers/rollingloud.jpg",
+      "videoUrl": "https://www.bilibili.com/video/BV19F411z7Kw"
+    },
+    {
+      "id": "vultures-rave-miami",
+      "title": "¥$ VULTURES RAVE MIAMI",
+      "fullTitle": "¥$ VULTURES RAVE MIAMI",
+      "coverPath": "albumcvers/vulturesrave.jpg",
+      "videoUrl": "https://www.bilibili.com/video/BV1kg4y1y7wr"
+    },
+    {
+      "id": "vultures-chicago",
+      "title": "¥$ VULTURES LISTENING EXPERIENCE CHICAGO",
+      "fullTitle": "¥$ VULTURES LISTENING EXPERIENCE CHICAGO",
+      "coverPath": "albumcvers/vultureschicago.jpg",
+      "videoUrl": "https://www.bilibili.com/video/BV12Z421z76u"
+    },
+    {
+      "id": "vultures-new-york",
+      "title": "¥$ VULTURES LISTENING EXPERIENCE NEW YORK",
+      "fullTitle": "¥$ VULTURES LISTENING EXPERIENCE NEW YORK",
+      "coverPath": "albumcvers/vulturesnewyork.jpg",
+      "videoUrl": "https://www.bilibili.com/video/BV1gt421a7UP"
+    },
+    {
+      "id": "vultures-korea",
+      "title": "¥$ VULTURES KOREA LISTENING EXPERIENCE",
+      "fullTitle": "¥$ VULTURES KOREA LISTENING EXPERIENCE",
+      "coverPath": "albumcvers/vultureskorea.jpg",
+      "videoUrl": "https://www.bilibili.com/video/BV1fQWQeaEyh"
+    },
+    {
+      "id": "vultures-las-vegas",
+      "title": "¥$ VULTURES LAS VEGAS RAVE",
+      "fullTitle": "¥$ VULTURES LAS VEGAS RAVE",
+      "coverPath": "albumcvers/vultureslasvegas.jpg",
+      "videoUrl": "https://www.bilibili.com/video/BV1sQ4y1g7i1"
+    },
+    {
+      "id": "ye-live-korea",
+      "title": "YE LIVE IN KOREA 26 JULY 2025",
+      "fullTitle": "YE LIVE IN KOREA 26 JULY 2025",
+      "coverPath": "albumcvers/yeliveinkorea.jpg",
+      "videoUrl": "https://www.bilibili.com/video/BV1618bzgEGV"
+    },
+    {
+      "id": "ye-live-mexico-day-1",
+      "title": "YE LIVE IN MEXICO DAY 1",
+      "fullTitle": "YE LIVE IN MEXICO DAY 1",
+      "coverPath": "albumcvers/yeliveinmexico1.jpg",
+      "videoUrl": "https://www.bilibili.com/video/BV14A6xBmE5T"
+    },
+    {
+      "id": "ye-live-mexico-day-2",
+      "title": "YE LIVE IN MEXICO DAY 2",
+      "fullTitle": "YE LIVE IN MEXICO DAY 2",
+      "coverPath": "albumcvers/yeliveinmexico2.jpg",
+      "videoUrl": "https://www.bilibili.com/video/BV1Gn6hBrEoY"
     }
   ]
 }

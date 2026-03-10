@@ -240,17 +240,6 @@
         title.className = 'video-player-title';
         title.textContent = album.fullTitle || album.title || 'Video Player';
         
-        var controls = document.createElement('div');
-        controls.className = 'video-player-header-controls';
-        
-        var fullscreenBtn = document.createElement('button');
-        fullscreenBtn.className = 'video-player-fullscreen';
-        fullscreenBtn.setAttribute('aria-label', 'Fullscreen');
-        fullscreenBtn.innerHTML = '<img src="playericon/icons8-full-48.png" alt="" class="video-player-fullscreen-icon">';
-        fullscreenBtn.addEventListener('click', function() {
-            toggleFullscreen(iframeWrapper, iframe);
-        });
-        
         var closeBtn = document.createElement('button');
         closeBtn.className = 'video-player-close';
         closeBtn.setAttribute('aria-label', 'Close video player');
@@ -259,10 +248,8 @@
             closeVideoPlayer();
         });
         
-        controls.appendChild(fullscreenBtn);
-        controls.appendChild(closeBtn);
         header.appendChild(title);
-        header.appendChild(controls);
+        header.appendChild(closeBtn);
         
         var iframeWrapper = document.createElement('div');
         iframeWrapper.className = 'video-player-iframe-wrapper';
@@ -274,9 +261,33 @@
         iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture');
         iframe.setAttribute('frameborder', '0');
         
+        // Fullscreen button positioned below video
+        var fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'video-player-fullscreen';
+        fullscreenBtn.setAttribute('aria-label', 'Enter fullscreen');
+        fullscreenBtn.innerHTML = '<img src="playericon/icons8-full-48.png" alt="" class="video-player-fullscreen-icon">';
+        
+        // Exit fullscreen button (shown when in fullscreen)
+        var exitFullscreenBtn = document.createElement('button');
+        exitFullscreenBtn.className = 'video-player-exit-fullscreen';
+        exitFullscreenBtn.setAttribute('aria-label', 'Exit fullscreen');
+        exitFullscreenBtn.innerHTML = '<img src="playericon/icons8-cancel-48.png" alt="" class="video-player-exit-fullscreen-icon">';
+        exitFullscreenBtn.style.display = 'none';
+        
+        fullscreenBtn.addEventListener('click', function() {
+            toggleFullscreen(iframeWrapper, iframe, fullscreenBtn, exitFullscreenBtn);
+        });
+        
+        exitFullscreenBtn.addEventListener('click', function() {
+            toggleFullscreen(iframeWrapper, iframe, fullscreenBtn, exitFullscreenBtn);
+        });
+        
         iframeWrapper.appendChild(iframe);
+        
         container.appendChild(header);
         container.appendChild(iframeWrapper);
+        container.appendChild(fullscreenBtn);
+        modal.appendChild(exitFullscreenBtn);
         modal.appendChild(backdrop);
         modal.appendChild(container);
         document.body.appendChild(modal);
@@ -298,7 +309,7 @@
         }
         document.addEventListener('keydown', handleEscape);
         
-        function toggleFullscreen(element, iframeEl) {
+        function toggleFullscreen(element, iframeEl, enterBtn, exitBtn) {
             if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
                 // Enter fullscreen
                 if (element.requestFullscreen) {
@@ -325,6 +336,9 @@
                 }
                 
                 element.classList.add('is-fullscreen');
+                header.style.display = 'none';
+                enterBtn.style.display = 'none';
+                exitBtn.style.display = 'flex';
             } else {
                 // Exit fullscreen
                 if (document.exitFullscreen) {
@@ -349,30 +363,38 @@
                 }
                 
                 element.classList.remove('is-fullscreen');
+                header.style.display = 'flex';
+                enterBtn.style.display = 'flex';
+                exitBtn.style.display = 'none';
             }
         }
         
         // Listen for fullscreen changes
-        document.addEventListener('fullscreenchange', function() {
-            if (!document.fullscreenElement) {
+        function handleFullscreenChange() {
+            var isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+            if (!isFullscreen) {
                 iframeWrapper.classList.remove('is-fullscreen');
+                header.style.display = 'flex';
+                fullscreenBtn.style.display = 'flex';
+                exitFullscreenBtn.style.display = 'none';
+                
+                // Unlock orientation when exiting fullscreen
+                if (screen.orientation && screen.orientation.unlock) {
+                    screen.orientation.unlock();
+                } else if (screen.unlockOrientation) {
+                    screen.unlockOrientation();
+                } else if (screen.mozUnlockOrientation) {
+                    screen.mozUnlockOrientation();
+                } else if (screen.msUnlockOrientation) {
+                    screen.msUnlockOrientation();
+                }
             }
-        });
-        document.addEventListener('webkitfullscreenchange', function() {
-            if (!document.webkitFullscreenElement) {
-                iframeWrapper.classList.remove('is-fullscreen');
-            }
-        });
-        document.addEventListener('mozfullscreenchange', function() {
-            if (!document.mozFullScreenElement) {
-                iframeWrapper.classList.remove('is-fullscreen');
-            }
-        });
-        document.addEventListener('MSFullscreenChange', function() {
-            if (!document.msFullscreenElement) {
-                iframeWrapper.classList.remove('is-fullscreen');
-            }
-        });
+        }
+        
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+        document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+        document.addEventListener('MSFullscreenChange', handleFullscreenChange);
         
         function closeVideoPlayer() {
             // Exit fullscreen if active
