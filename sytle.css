@@ -330,10 +330,23 @@ body::after {
     opacity: 0.85;
     transform: scale(1.05);
 }
+.mainpage .topbar-x-link:hover .topbar-x-icon {
+    animation: topbar-x-icon-hover 0.4s ease;
+}
+@keyframes topbar-x-icon-hover {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
 .mainpage .topbar-x-icon {
     width: 22px;
     height: 22px;
     display: block;
+    animation: topbar-x-icon-pulse 2.5s ease-in-out infinite;
+}
+@keyframes topbar-x-icon-pulse {
+    0%, 100% { opacity: 1; filter: drop-shadow(0 0 4px rgba(92, 255, 158, 0.4)); }
+    50% { opacity: 0.85; filter: drop-shadow(0 0 8px rgba(92, 255, 158, 0.6)); }
 }
 
 .mainpage .topbar-menu-btn {
