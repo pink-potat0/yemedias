@@ -240,6 +240,17 @@
         title.className = 'video-player-title';
         title.textContent = album.fullTitle || album.title || 'Video Player';
         
+        var controls = document.createElement('div');
+        controls.className = 'video-player-header-controls';
+        
+        var fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'video-player-fullscreen';
+        fullscreenBtn.setAttribute('aria-label', 'Fullscreen');
+        fullscreenBtn.innerHTML = '<img src="playericon/icons8-full-48.png" alt="" class="video-player-fullscreen-icon">';
+        fullscreenBtn.addEventListener('click', function() {
+            toggleFullscreen(iframeWrapper, iframe);
+        });
+        
         var closeBtn = document.createElement('button');
         closeBtn.className = 'video-player-close';
         closeBtn.setAttribute('aria-label', 'Close video player');
@@ -248,8 +259,10 @@
             closeVideoPlayer();
         });
         
+        controls.appendChild(fullscreenBtn);
+        controls.appendChild(closeBtn);
         header.appendChild(title);
-        header.appendChild(closeBtn);
+        header.appendChild(controls);
         
         var iframeWrapper = document.createElement('div');
         iframeWrapper.className = 'video-player-iframe-wrapper';
@@ -285,7 +298,96 @@
         }
         document.addEventListener('keydown', handleEscape);
         
+        function toggleFullscreen(element, iframeEl) {
+            if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
+                // Enter fullscreen
+                if (element.requestFullscreen) {
+                    element.requestFullscreen();
+                } else if (element.webkitRequestFullscreen) {
+                    element.webkitRequestFullscreen();
+                } else if (element.mozRequestFullScreen) {
+                    element.mozRequestFullScreen();
+                } else if (element.msRequestFullscreen) {
+                    element.msRequestFullscreen();
+                }
+                
+                // Try to lock orientation to landscape (limited browser support)
+                if (screen.orientation && screen.orientation.lock) {
+                    screen.orientation.lock('landscape').catch(function() {
+                        // Orientation lock not supported or failed
+                    });
+                } else if (screen.lockOrientation) {
+                    screen.lockOrientation('landscape');
+                } else if (screen.mozLockOrientation) {
+                    screen.mozLockOrientation('landscape');
+                } else if (screen.msLockOrientation) {
+                    screen.msLockOrientation('landscape');
+                }
+                
+                element.classList.add('is-fullscreen');
+            } else {
+                // Exit fullscreen
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+                
+                // Unlock orientation
+                if (screen.orientation && screen.orientation.unlock) {
+                    screen.orientation.unlock();
+                } else if (screen.unlockOrientation) {
+                    screen.unlockOrientation();
+                } else if (screen.mozUnlockOrientation) {
+                    screen.mozUnlockOrientation();
+                } else if (screen.msUnlockOrientation) {
+                    screen.msUnlockOrientation();
+                }
+                
+                element.classList.remove('is-fullscreen');
+            }
+        }
+        
+        // Listen for fullscreen changes
+        document.addEventListener('fullscreenchange', function() {
+            if (!document.fullscreenElement) {
+                iframeWrapper.classList.remove('is-fullscreen');
+            }
+        });
+        document.addEventListener('webkitfullscreenchange', function() {
+            if (!document.webkitFullscreenElement) {
+                iframeWrapper.classList.remove('is-fullscreen');
+            }
+        });
+        document.addEventListener('mozfullscreenchange', function() {
+            if (!document.mozFullScreenElement) {
+                iframeWrapper.classList.remove('is-fullscreen');
+            }
+        });
+        document.addEventListener('MSFullscreenChange', function() {
+            if (!document.msFullscreenElement) {
+                iframeWrapper.classList.remove('is-fullscreen');
+            }
+        });
+        
         function closeVideoPlayer() {
+            // Exit fullscreen if active
+            if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+            
             if (modal && modal.parentNode) {
                 modal.classList.add('closing');
                 setTimeout(function() {
