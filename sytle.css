@@ -311,6 +311,31 @@ body::after {
     opacity: 1;
 }
 
+.mainpage .topbar-x-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: #5cff9e;
+    flex-shrink: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    text-decoration: none;
+}
+.mainpage .topbar-x-link:hover {
+    opacity: 0.85;
+    transform: scale(1.05);
+}
+.mainpage .topbar-x-icon {
+    width: 22px;
+    height: 22px;
+    display: block;
+}
+
 .mainpage .topbar-menu-btn {
     display: none;
     align-items: center;

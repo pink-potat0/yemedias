@@ -1,13 +1,8 @@
 {
   "rewrites": [
-    {
-      "source": "/mainpage",
-      "destination": "/mainpage.html"
-    },
-    {
-      "source": "/",
-      "destination": "/index.html"
-    }
+    { "source": "/mainpage", "destination": "/mainpage.html" },
+    { "source": "/mainpage.html", "destination": "/mainpage.html" },
+    { "source": "/", "destination": "/index.html" }
   ]
 }
 

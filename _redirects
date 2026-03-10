@@ -1,7 +1,8 @@
 # Netlify redirects for clean URLs
-/mainpage    /mainpage.html   200
-/mainpage/   /mainpage.html   200
-/            /index.html      200
+/mainpage     /mainpage.html   200
+/mainpage/    /mainpage.html   200
+/mainpage.html /mainpage.html  200
+/             /index.html      200
 
 
 
