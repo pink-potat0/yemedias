@@ -218,37 +218,89 @@
         if (videoUrl.includes('bilibili.com/video/')) {
             var bvid = videoUrl.match(/\/video\/(BV\w+)/);
             if (bvid && bvid[1]) {
-                videoUrl = 'https://player.bilibili.com/player.html?bvid=' + bvid[1] + '&autoplay=false';
+                videoUrl = 'https://player.bilibili.com/player.html?bvid=' + bvid[1] + '&autoplay=false&page=1';
             }
         }
         
-        // Create video player modal
+        // Create video player modal with native styling
         var modal = document.createElement('div');
         modal.className = 'video-player-modal';
-        modal.style.cssText = 'position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center;';
+        modal.setAttribute('aria-hidden', 'false');
         
-        var iframe = document.createElement('iframe');
-        iframe.src = videoUrl;
-        iframe.style.cssText = 'width: 90vw; max-width: 1200px; height: 67.5vw; max-height: 675px; border: none; border-radius: 8px;';
-        iframe.setAttribute('allowfullscreen', 'true');
-        iframe.setAttribute('allow', 'autoplay; fullscreen');
+        var backdrop = document.createElement('div');
+        backdrop.className = 'video-player-backdrop';
+        
+        var container = document.createElement('div');
+        container.className = 'video-player-container';
+        
+        var header = document.createElement('div');
+        header.className = 'video-player-header';
+        
+        var title = document.createElement('span');
+        title.className = 'video-player-title';
+        title.textContent = album.fullTitle || album.title || 'Video Player';
         
         var closeBtn = document.createElement('button');
-        closeBtn.innerHTML = '×';
-        closeBtn.style.cssText = 'position: absolute; top: 1rem; right: 1rem; width: 40px; height: 40px; background: rgba(255,255,255,0.2); border: none; border-radius: 50%; color: white; font-size: 24px; cursor: pointer; z-index: 2001;';
+        closeBtn.className = 'video-player-close';
+        closeBtn.setAttribute('aria-label', 'Close video player');
+        closeBtn.innerHTML = '<img src="playericon/icons8-cancel-48.png" alt="" class="video-player-close-icon">';
         closeBtn.addEventListener('click', function() {
-            document.body.removeChild(modal);
+            closeVideoPlayer();
         });
         
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                document.body.removeChild(modal);
-            }
-        });
+        header.appendChild(title);
+        header.appendChild(closeBtn);
         
-        modal.appendChild(iframe);
-        modal.appendChild(closeBtn);
+        var iframeWrapper = document.createElement('div');
+        iframeWrapper.className = 'video-player-iframe-wrapper';
+        
+        var iframe = document.createElement('iframe');
+        iframe.className = 'video-player-iframe';
+        iframe.src = videoUrl;
+        iframe.setAttribute('allowfullscreen', 'true');
+        iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture');
+        iframe.setAttribute('frameborder', '0');
+        
+        iframeWrapper.appendChild(iframe);
+        container.appendChild(header);
+        container.appendChild(iframeWrapper);
+        modal.appendChild(backdrop);
+        modal.appendChild(container);
         document.body.appendChild(modal);
+        
+        // Prevent body scroll when modal is open
+        document.body.style.overflow = 'hidden';
+        
+        // Close on backdrop click
+        backdrop.addEventListener('click', function() {
+            closeVideoPlayer();
+        });
+        
+        // Close on Escape key
+        function handleEscape(e) {
+            if (e.key === 'Escape') {
+                closeVideoPlayer();
+                document.removeEventListener('keydown', handleEscape);
+            }
+        }
+        document.addEventListener('keydown', handleEscape);
+        
+        function closeVideoPlayer() {
+            if (modal && modal.parentNode) {
+                modal.classList.add('closing');
+                setTimeout(function() {
+                    if (modal && modal.parentNode) {
+                        document.body.removeChild(modal);
+                        document.body.style.overflow = '';
+                    }
+                }, 300);
+            }
+        }
+        
+        // Trigger animation
+        setTimeout(function() {
+            modal.classList.add('is-visible');
+        }, 10);
     }
 
     function viewAlbumContents(album) {
@@ -784,11 +836,17 @@
         title.textContent = album.title;
 
         if (isLpMv && album.videoUrl) {
+            card.classList.add("has-video");
             var playBtn = document.createElement("button");
             playBtn.type = "button";
             playBtn.className = "album-card-play album-card-play-corner";
             playBtn.setAttribute("aria-label", "Watch " + album.title);
-            playBtn.innerHTML = "▶";
+            var playIcon = document.createElement("img");
+            playIcon.className = "album-card-play-icon";
+            playIcon.src = "playericon/icons8-play-48.png";
+            playIcon.alt = "";
+            playIcon.setAttribute("aria-hidden", "true");
+            playBtn.appendChild(playIcon);
             playBtn.addEventListener("click", function(e) {
                 e.preventDefault();
                 e.stopPropagation();

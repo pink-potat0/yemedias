@@ -230,9 +230,10 @@
   ],
   "lpsMvs": [
     {
-      "id": "example-bilibili-video",
-      "title": "DONDA lp ",
-      "coverPath": "albumcvers/fav.jpg",
+      "id": "donda-lp-atlanta",
+      "title": "DONDA ATLANTA LP",
+      "fullTitle": "Kanye West 'DONDA' Listening Party atlanta",git 
+      "coverPath": "albumcvers/dondalpatlanta.jpg",
       "videoUrl": "https://www.bilibili.com/video/BV17U4y1n7kN"
     }
   ]
