@@ -4,6 +4,8 @@
     var currentTrackIndex = 0;
     var currentAlbum = null;
     var expandedAlbum = null;
+    var currentVideoAlbum = null;
+    var currentVideoIndex = 0;
     var shuffleEnabled = false;
     var repeatMode = "none"; // "none" | "all" | "one"
     var FAVOURITES_KEY = "kanyestream_favourites";
@@ -210,8 +212,15 @@
         updatePlayerUI();
     }
 
-    function openVideoPlayer(album) {
-        if (!album.videoUrl) return;
+    function openVideoPlayer(album, startIndex) {
+        var isPlaylist = album.videos && album.videos.length && typeof startIndex === "number";
+        var idx = isPlaylist ? Math.min(Math.max(0, startIndex), album.videos.length - 1) : 0;
+        if (isPlaylist) {
+            currentVideoAlbum = album;
+            currentVideoIndex = idx;
+        }
+        var videoUrl = isPlaylist ? album.videos[idx].videoUrl : album.videoUrl;
+        if (!videoUrl) return;
         
         // Pause any currently playing audio
         var audio = document.getElementById("mainpage-audio");
@@ -220,16 +229,17 @@
             updatePlayPauseButtons();
         }
         
-        var videoUrl = album.videoUrl;
-        
-        // Convert Bilibili URL to embed URL if needed
-        if (videoUrl.includes('bilibili.com/video/')) {
-            var bvid = videoUrl.match(/\/video\/(BV\w+)/);
-            if (bvid && bvid[1]) {
-                videoUrl = 'https://player.bilibili.com/player.html?bvid=' + bvid[1] + '&autoplay=false&page=1';
+        function getEmbedUrl(url) {
+            if (url && url.indexOf("bilibili.com/video/") !== -1) {
+                var m = url.match(/\/video\/(BV\w+)/);
+                if (m && m[1]) return "https://player.bilibili.com/player.html?bvid=" + m[1] + "&autoplay=false&page=1";
             }
+            return url || "";
         }
         
+        videoUrl = getEmbedUrl(videoUrl);
+        
+        var displayTitle = isPlaylist ? album.videos[idx].title : (album.fullTitle || album.title || "Video Player");
         // Create video player modal with native styling
         var modal = document.createElement('div');
         modal.className = 'video-player-modal';
@@ -246,7 +256,7 @@
         
         var title = document.createElement('span');
         title.className = 'video-player-title';
-        title.textContent = album.fullTitle || album.title || 'Video Player';
+        title.textContent = displayTitle;
         
         var closeBtn = document.createElement('button');
         closeBtn.className = 'video-player-close';
@@ -257,6 +267,40 @@
         });
         
         header.appendChild(title);
+        if (isPlaylist && album.videos.length > 1) {
+            var prevVideoBtn = document.createElement('button');
+            prevVideoBtn.className = 'video-player-prev';
+            prevVideoBtn.setAttribute('aria-label', 'Previous video');
+            prevVideoBtn.innerHTML = '<img src="playericon/icons8-skip-to-start-48.png" alt="" class="video-player-nav-icon">';
+            prevVideoBtn.style.display = idx === 0 ? 'none' : '';
+            var nextVideoBtn = document.createElement('button');
+            nextVideoBtn.className = 'video-player-next';
+            nextVideoBtn.setAttribute('aria-label', 'Next video');
+            nextVideoBtn.innerHTML = '<img src="playericon/icons8-skip-48.png" alt="" class="video-player-nav-icon">';
+            nextVideoBtn.style.display = idx === album.videos.length - 1 ? 'none' : '';
+            prevVideoBtn.addEventListener('click', function() {
+                if (currentVideoIndex <= 0) return;
+                currentVideoIndex--;
+                var v = album.videos[currentVideoIndex];
+                iframe.src = getEmbedUrl(v.videoUrl);
+                title.textContent = v.title;
+                prevVideoBtn.style.display = currentVideoIndex === 0 ? 'none' : '';
+                nextVideoBtn.style.display = '';
+                updateExpandedView();
+            });
+            nextVideoBtn.addEventListener('click', function() {
+                if (currentVideoIndex >= album.videos.length - 1) return;
+                currentVideoIndex++;
+                var v = album.videos[currentVideoIndex];
+                iframe.src = getEmbedUrl(v.videoUrl);
+                title.textContent = v.title;
+                nextVideoBtn.style.display = currentVideoIndex === album.videos.length - 1 ? 'none' : '';
+                prevVideoBtn.style.display = '';
+                updateExpandedView();
+            });
+            header.insertBefore(prevVideoBtn, title);
+            header.appendChild(nextVideoBtn);
+        }
         header.appendChild(closeBtn);
         
         var iframeWrapper = document.createElement('div');
@@ -436,7 +480,10 @@
     }
 
     function viewAlbumContents(album) {
-        if (!album.tracks || !album.tracks.length) return;
+        if (!album) return;
+        var hasTracks = album.tracks && album.tracks.length;
+        var hasVideos = album.videos && album.videos.length;
+        if (!hasTracks && !hasVideos) return;
         expandedAlbum = album;
         updateExpandedView();
         var panel = document.getElementById("mainpage-player-expanded");
@@ -620,7 +667,7 @@
         if (!panel || !listEl) return;
 
         var album = expandedAlbum || currentAlbum;
-        if (!album || !album.tracks || !album.tracks.length) {
+        if (!album) {
             if (coverImg) { coverImg.src = ""; coverImg.alt = ""; }
             if (blurEl) blurEl.style.backgroundImage = "";
             if (titleEl) titleEl.textContent = "";
@@ -630,6 +677,24 @@
             if (trackTitleEl) trackTitleEl.textContent = "";
             if (trackMetaEl) trackMetaEl.textContent = "";
             listEl.innerHTML = "";
+            var p = document.getElementById("mainpage-player-expanded");
+            if (p) p.classList.remove("is-video-folder");
+            return;
+        }
+        var hasTracks = album.tracks && album.tracks.length;
+        var hasVideos = album.videos && album.videos.length;
+        if (!hasTracks && !hasVideos) {
+            if (coverImg) { coverImg.src = ""; coverImg.alt = ""; }
+            if (blurEl) blurEl.style.backgroundImage = "";
+            if (titleEl) titleEl.textContent = "";
+            if (metaEl) metaEl.textContent = "";
+            var trackTitleEl = document.getElementById("mainpage-player-expanded-track-title");
+            var trackMetaEl = document.getElementById("mainpage-player-expanded-track-meta");
+            if (trackTitleEl) trackTitleEl.textContent = "";
+            if (trackMetaEl) trackMetaEl.textContent = "";
+            listEl.innerHTML = "";
+            var p = document.getElementById("mainpage-player-expanded");
+            if (p) p.classList.remove("is-video-folder");
             return;
         }
 
@@ -644,11 +709,17 @@
             blurEl.style.backgroundImage = "url(" + nowPlayingAlbum.coverPath + ")";
         }
         if (titleEl) titleEl.textContent = album.title;
-        if (metaEl) metaEl.textContent = album.tracks.length + " track" + (album.tracks.length !== 1 ? "s" : "");
+        if (metaEl) metaEl.textContent = hasVideos
+            ? (album.videos.length + " video" + (album.videos.length !== 1 ? "s" : ""))
+            : (album.tracks.length + " track" + (album.tracks.length !== 1 ? "s" : ""));
         var trackTitleEl = document.getElementById("mainpage-player-expanded-track-title");
         var trackMetaEl = document.getElementById("mainpage-player-expanded-track-meta");
         if (trackTitleEl) {
-            if (currentAlbum && currentAlbum.tracks && currentAlbum.tracks[currentTrackIndex])
+            if (hasVideos) {
+                trackTitleEl.textContent = (currentVideoAlbum === album && album.videos[currentVideoIndex])
+                    ? album.videos[currentVideoIndex].title
+                    : (album.videos[0] ? album.videos[0].title : "");
+            } else if (currentAlbum && currentAlbum.tracks && currentAlbum.tracks[currentTrackIndex])
                 trackTitleEl.textContent = currentAlbum.tracks[currentTrackIndex].title;
             else if (album.tracks[0])
                 trackTitleEl.textContent = album.tracks[0].title;
@@ -658,8 +729,41 @@
         if (trackMetaEl) {
             trackMetaEl.textContent = nowPlayingAlbum.title;
         }
-        updateLikeButton();
+        if (hasVideos) {
+            var likeBtn = document.getElementById("mainpage-player-expanded-like");
+            if (likeBtn) likeBtn.style.display = "none";
+        } else {
+            updateLikeButton();
+        }
+        var panelEl = document.getElementById("mainpage-player-expanded");
+        if (panelEl) {
+            if (hasVideos) panelEl.classList.add("is-video-folder");
+            else panelEl.classList.remove("is-video-folder");
+        }
         listEl.innerHTML = "";
+        if (hasVideos) {
+            album.videos.forEach(function (v, i) {
+                var li = document.createElement("li");
+                if (currentVideoAlbum === album && currentVideoIndex === i) li.classList.add("is-current");
+                var thumb = document.createElement("img");
+                thumb.className = "track-list-cover";
+                thumb.src = (v.coverPath || album.coverPath);
+                thumb.alt = "";
+                thumb.loading = "lazy";
+                var numSpan = document.createElement("span");
+                numSpan.className = "track-num";
+                numSpan.textContent = i + 1;
+                var btn = document.createElement("button");
+                btn.type = "button";
+                btn.textContent = v.title;
+                btn.addEventListener("click", function () { openVideoPlayer(album, i); });
+                li.appendChild(thumb);
+                li.appendChild(numSpan);
+                li.appendChild(btn);
+                listEl.appendChild(li);
+            });
+            return;
+        }
         var currentTrackInExpanded = -1;
         if (album.id === "_favourites" && currentAlbum) {
             for (var j = 0; j < album.tracks.length; j++) {
@@ -867,6 +971,7 @@
             playAllBtn.addEventListener("click", function () {
                 var album = expandedAlbum || currentAlbum;
                 if (album && album.tracks && album.tracks.length) playAlbum(album);
+                else if (album && album.videos && album.videos.length) openVideoPlayer(album, 0);
             });
         }
         var likeBtn = document.getElementById("mainpage-player-expanded-like");
@@ -967,7 +1072,7 @@
         title.className = "album-card-title";
         title.textContent = album.title;
 
-        if (isLpMv && album.videoUrl) {
+        if (isLpMv && (album.videoUrl || (album.videos && album.videos.length))) {
             card.classList.add("has-video");
             var playBtn = document.createElement("button");
             playBtn.type = "button";
@@ -982,10 +1087,19 @@
             playBtn.addEventListener("click", function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                openVideoPlayer(album);
+                if (album.videos && album.videos.length) {
+                    viewAlbumContents(album);
+                } else {
+                    openVideoPlayer(album);
+                }
             });
             overlay.appendChild(title);
             overlay.appendChild(playBtn);
+            card.addEventListener("click", function(e) {
+                if (e.target.closest(".album-card-play")) return;
+                if (album.videos && album.videos.length) viewAlbumContents(album);
+            });
+            overlay.style.cursor = "pointer";
         } else if (album.tracks && album.tracks.length) {
             card.classList.add("has-tracks");
             overlay.addEventListener("click", function (e) {

@@ -230,6 +230,34 @@
   ],
   "lpsMvs": [
     {
+      "id": "tlop-yeezy-season-3",
+      "title": "TLOP Yeezy Season 3",
+      "fullTitle": "The Life of Pablo Yeezy Season 3 2016",
+      "coverPath": "albumcvers/tlop.jpg",
+      "videoUrl": "https://www.bilibili.com/video/BV1Nh411p77C"
+    },
+    {
+      "id": "ghost-town-sunday-service",
+      "title": "Ghost Town Sunday Service",
+      "fullTitle": "Ghost Town Sunday service \"yemix\"",
+      "coverPath": "albumcvers/ghost.jpg",
+      "videoUrl": "https://www.bilibili.com/video/BV1ZV41197x3"
+    },
+    {
+      "id": "sunday-service-choir",
+      "title": "Sunday Service Choir",
+      "fullTitle": "Sunday Service Choir",
+      "coverPath": "albumcvers/sundayservice.jpg",
+      "videos": [
+        { "title": "Kanye West - Sunday Service Live 2019/10/27", "videoUrl": "https://www.bilibili.com/video/BV1FE411h7vA", "coverPath": "albumcvers/sundayserv1.jpg" },
+        { "title": "Sunday Service 2021.10.31", "videoUrl": "https://www.bilibili.com/video/BV1mL4y1i7TM", "coverPath": "albumcvers/sundayserv2.jpg" },
+        { "title": "Sunday Service 2021.11.14", "videoUrl": "https://www.bilibili.com/video/BV1f341187gq", "coverPath": "albumcvers/sundayserv3.jpg" },
+        { "title": "Sunday Service 2021.11.7", "videoUrl": "https://www.bilibili.com/video/BV1pv411M7FW", "coverPath": "albumcvers/sundayserv4.jpg" },
+        { "title": "Sunday Service 2021.11.21", "videoUrl": "https://www.bilibili.com/video/BV1GU4y1u7Mb", "coverPath": "albumcvers/sundayserv5.jpg" },
+        { "title": "Sunday Service 2021.11.28", "videoUrl": "https://www.bilibili.com/video/BV1RF411b72R", "coverPath": "albumcvers/sundayserv6.jpg" }
+      ]
+    },
+    {
       "id": "donda-lp-1",
       "title": "DONDA LP 1",
       "fullTitle": "Kanye West 'DONDA' Listening Party atlanta",
