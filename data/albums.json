@@ -228,5 +228,12 @@
       ]
     }
   ],
-  "lpsMvs": []
+  "lpsMvs": [
+    {
+      "id": "example-bilibili-video",
+      "title": "DONDA lp ",
+      "coverPath": "albumcvers/fav.jpg",
+      "videoUrl": "https://www.bilibili.com/video/BV17U4y1n7kN"
+    }
+  ]
 }
